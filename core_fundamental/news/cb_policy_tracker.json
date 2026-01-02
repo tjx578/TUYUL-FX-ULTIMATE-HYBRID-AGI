@@ -1,1 +1,82 @@
-{}
+{
+  "version": "v5.3.3",
+  "last_updated": "2026-01-02T00:00:00Z",
+  "description": "Central Bank Policy Tracker - TUYUL FX AGI Hybrid",
+  "data": {
+    "FED": {
+      "bank": "Federal Reserve (U.S.)",
+      "current_rate": 5.5,
+      "policy_bias": "neutral",
+      "next_meeting": "2026-01-29",
+      "last_decision": "Hold",
+      "comment": "FOMC menahan suku bunga, menunggu data inflasi dan tenaga kerja."
+    },
+    "ECB": {
+      "bank": "European Central Bank",
+      "current_rate": 4.0,
+      "policy_bias": "dovish",
+      "next_meeting": "2026-02-06",
+      "last_decision": "Cut",
+      "comment": "ECB menurunkan suku bunga 25bps untuk mendukung pertumbuhan zona Euro."
+    },
+    "BOE": {
+      "bank": "Bank of England",
+      "current_rate": 4.75,
+      "policy_bias": "neutral",
+      "next_meeting": "2026-01-23",
+      "last_decision": "Hold",
+      "comment": "BoE menunggu sinyal penurunan inflasi sebelum langkah berikutnya."
+    },
+    "BOJ": {
+      "bank": "Bank of Japan",
+      "current_rate": -0.1,
+      "policy_bias": "hawkish",
+      "next_meeting": "2026-01-18",
+      "last_decision": "Hold",
+      "comment": "BoJ memberi sinyal normalisasi kebijakan bertahap setelah tekanan inflasi."
+    },
+    "RBA": {
+      "bank": "Reserve Bank of Australia",
+      "current_rate": 4.35,
+      "policy_bias": "neutral",
+      "next_meeting": "2026-02-05",
+      "last_decision": "Hold",
+      "comment": "RBA memantau pertumbuhan upah dan pasar properti."
+    },
+    "SNB": {
+      "bank": "Swiss National Bank",
+      "current_rate": 1.5,
+      "policy_bias": "neutral",
+      "next_meeting": "2026-03-10",
+      "last_decision": "Hold",
+      "comment": "SNB menjaga stabilitas CHF di tengah tekanan deflasi ringan."
+    },
+    "BOC": {
+      "bank": "Bank of Canada",
+      "current_rate": 4.75,
+      "policy_bias": "hawkish",
+      "next_meeting": "2026-02-12",
+      "last_decision": "Hold",
+      "comment": "BoC masih fokus pada pengendalian inflasi dan keseimbangan CAD."
+    },
+    "PBOC": {
+      "bank": "People's Bank of China",
+      "current_rate": 3.45,
+      "policy_bias": "dovish",
+      "next_meeting": "N/A",
+      "last_decision": "Cut",
+      "comment": "PBoC menurunkan LPR untuk mendukung pemulihan sektor properti dan konsumsi."
+    }
+  },
+  "global_sentiment": {
+    "hawkish_count": 2,
+    "dovish_count": 2,
+    "neutral_count": 4,
+    "macro_outlook": "Neutral - Policy divergence stable; no synchronized tightening or easing."
+  },
+  "metadata": {
+    "source": "TUYUL_KARTEL_POLICY_DB",
+    "integrity": "validated",
+    "update_interval_days": 7
+  }
+}
