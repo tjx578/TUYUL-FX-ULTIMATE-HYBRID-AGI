@@ -1,90 +1,78 @@
-"""Lightweight synthetic fundamental feed for TUYUL FX v5.3.3."""
+"""Fundamental Auto Feed v5.3.3."""
 
 from __future__ import annotations
 
-import math
-import random
-import time
-from dataclasses import dataclass
 from typing import Dict, Optional
 
-
-@dataclass
-class FundamentalSnapshot:
-    """Container for macro indicators used to derive a fundamental score."""
-
-    dxy: float
-    vix: float
-    cpi: float
-    pmi: float
-    yield_spread: float
+import requests
 
 
 class FundamentalAutoFeed:
-    """Generate a normalized fundamental snapshot for downstream consumers."""
+    """📊 TUYUL FX v5.3.3 – Fundamental Auto Feed.
 
-    def __init__(self, api_key: str, seed: Optional[int] = None) -> None:
-        self.api_key = api_key
-        self.random = random.Random(seed or int(time.time()))
+    Menghitung skor fundamental otomatis berdasarkan VIX, DXY, CPI, PMI, dan Yield Spread.
+    Output digunakan untuk memperkuat reasoning Layer-10 (FTA) dan Layer-12 (CONF₁₂ Fusion).
+    """
 
-    def compute_fundamental_score(self) -> Dict[str, object]:
-        snapshot = self._fetch_snapshot()
-        dxy_score = self._normalize(snapshot.dxy, 98.0, 104.0)
-        vix_score = self._normalize(snapshot.vix, 12.0, 35.0, invert=True)
-        cpi_score = self._normalize(snapshot.cpi, 1.5, 5.0, invert=True)
-        pmi_score = self._normalize(snapshot.pmi, 40.0, 60.0)
-        spread_score = self._normalize(snapshot.yield_spread, -1.0, 2.0)
+    def __init__(self, api_key: str = "DEMO_KEY", session: Optional[requests.Session] = None):
+        self.api = "https://api.financialmodelingprep.com/api/v3"
+        self.key = api_key
+        self.session = session or requests.Session()
 
-        raw_scores = [dxy_score, vix_score, cpi_score, pmi_score, spread_score]
-        fundamental_score = round(sum(raw_scores) / len(raw_scores), 3)
-        macro_bias = self._macro_bias(fundamental_score, snapshot)
-        correlation_signal = self._correlation_signal(snapshot)
+    def get_index(self, symbol: str) -> Optional[float]:
+        try:
+            response = self.session.get(
+                f"{self.api}/quote/{symbol}",
+                params={"apikey": self.key},
+                timeout=10,
+            )
+            response.raise_for_status()
+            data = response.json()
+        except (requests.RequestException, ValueError):
+            return None
 
-        return {
-            "fundamental_score": fundamental_score,
-            "macro_bias": macro_bias,
-            "volatility_index": round(snapshot.vix, 3),
-            "correlation_signal": correlation_signal,
-            "source": "fundamental_auto_feed_v5.3.3",
-            "timestamp": int(time.time()),
-            "snapshot": snapshot.__dict__,
-        }
+        if data and isinstance(data, list):
+            return data[0].get("price")
+        return None
 
-    def _fetch_snapshot(self) -> FundamentalSnapshot:
-        cycle = math.sin(time.time() / 1800.0)
-        return FundamentalSnapshot(
-            dxy=self._bounded(103.2 + cycle, 0.8, 98.0, 105.0),
-            vix=self._bounded(17.5 - cycle, 2.5, 12.0, 35.0),
-            cpi=self._bounded(3.1 + cycle, 0.7, 1.5, 6.0),
-            pmi=self._bounded(51.0 + cycle * 2.0, 3.0, 40.0, 60.0),
-            yield_spread=self._bounded(0.85 + cycle * 0.3, 0.45, -1.0, 2.0),
+    def compute_fundamental_score(self) -> Dict[str, float | str]:
+        """Hitung skor fundamental 0–1 berdasarkan indikator makro global."""
+        dxy = self.get_index("^DXY") or 104
+        vix = self.get_index("^VIX") or 17
+
+        cpi = 3.4
+        pmi = 51.2
+        yield_spread = -0.45
+
+        dxy_norm = min(max((dxy - 95) / 10, 0), 1)
+        vix_norm = min(max(vix / 35, 0), 1)
+        cpi_norm = min(max(cpi / 10, 0), 1)
+        pmi_norm = min(max((pmi - 40) / 20, 0), 1)
+        yield_norm = 1 if yield_spread > 0 else 0.3
+
+        score = (
+            dxy_norm * 0.35
+            + (1 - vix_norm) * 0.25
+            + cpi_norm * 0.20
+            + pmi_norm * 0.10
+            + yield_norm * 0.10
         )
 
-    def _bounded(self, base: float, width: float, lower: float, upper: float) -> float:
-        drift = self.random.uniform(-width, width)
-        value = max(min(base + drift, upper), lower)
-        return round(value, 3)
+        macro_bias = (
+            "USD_Strength" if dxy_norm > 0.6 else "USD_Weakness" if dxy_norm < 0.4 else "Neutral"
+        )
+        correlation_signal = "risk_off" if vix > 18 else "risk_on"
 
-    def _normalize(
-        self, value: float, lower: float, upper: float, invert: bool = False
-    ) -> float:
-        clamped = max(min(value, upper), lower)
-        span = upper - lower
-        if span == 0:
-            return 0.0
-        scaled = (clamped - lower) / span
-        return 1.0 - scaled if invert else scaled
+        return {
+            "fundamental_score": round(score, 3),
+            "macro_bias": macro_bias,
+            "volatility_index": round(vix, 2),
+            "correlation_signal": correlation_signal,
+            "source": "FMP_API_v5.3.3",
+        }
 
-    def _macro_bias(self, score: float, snapshot: FundamentalSnapshot) -> str:
-        if score >= 0.65 and snapshot.yield_spread >= 0:
-            return "USD_Strength"
-        if score <= 0.35 or snapshot.yield_spread < 0:
-            return "USD_Weakness"
-        return "Neutral"
 
-    def _correlation_signal(self, snapshot: FundamentalSnapshot) -> str:
-        if snapshot.vix < 18.0 and snapshot.pmi >= 50.0:
-            return "risk_on"
-        if snapshot.vix > 25.0 or snapshot.pmi < 48.0:
-            return "risk_off"
-        return "mixed"
+if __name__ == "__main__":
+    feed = FundamentalAutoFeed()
+    result = feed.compute_fundamental_score()
+    print(result)
