@@ -1,147 +1,145 @@
+"""Integrator patch linking Fundamental Auto Feed with Proto AGI Engine.
+
+This module injects the fundamental auto-feed signal directly into the Proto
+AGI Engine (Layer-12) run pipeline, ensuring macro awareness is included
+whenever trading directives are produced.
+"""
+
 from __future__ import annotations
 
-import json
-from dataclasses import dataclass
-from datetime import datetime, timezone
-from pathlib import Path
-from typing import Any, Dict, Iterable, List
+from datetime import datetime
+from typing import Any, Dict, Mapping, MutableMapping, Sequence
+
+from core_fundamental.fundamental_auto_feed_v_533 import FundamentalAutoFeed
+from core_orchestrator.proto_agi_engine_v533 import AGIReasoningOutput, ProtoAGIEngine
 
 
-BRIDGE_LOG_PATH = Path("data/logs/layer12_fusion_bridge.jsonl")
+def _last_numeric(values: Sequence[Any] | None) -> float | None:
+    if not values:
+        return None
+    try:
+        return float(values[-1])
+    except (TypeError, ValueError):
+        return None
 
 
-def _clamp(value: float, lower: float = 0.0, upper: float = 1.0) -> float:
-    return max(lower, min(upper, value))
+def _min_numeric(values: Sequence[Any] | None) -> float | None:
+    if not values:
+        return None
+    numeric_values = []
+    for value in values:
+        try:
+            numeric_values.append(float(value))
+        except (TypeError, ValueError):
+            continue
+    return min(numeric_values) if numeric_values else None
 
 
-def _safe_mean(values: Iterable[float]) -> float:
-    items = list(values)
-    if not items:
-        return 0.0
-    return sum(items) / len(items)
-
-
-@dataclass
-class FusionFundamentalResult:
-    pair: str
-    timeframe: str
-    timestamp: str
-    fusion_confidence: float
-    bias_direction: str
-    coherence_score: float
-    fundamental_score: float
-    macro_bias: str
-
-    def to_dict(self) -> Dict[str, Any]:
-        return {
-            "pair": self.pair,
-            "timeframe": self.timeframe,
-            "timestamp": self.timestamp,
-            "fundamental_context": {
-                "fundamental_score": self.fundamental_score,
-                "macro_bias": self.macro_bias,
-            },
-            "layer12": {
-                "fusion_confidence": self.fusion_confidence,
-                "bias_direction": self.bias_direction,
-                "coherence_score": self.coherence_score,
-            },
-        }
+def _average_numeric(values: Sequence[Any] | None) -> float | None:
+    if not values:
+        return None
+    numeric_values = []
+    for value in values:
+        try:
+            numeric_values.append(float(value))
+        except (TypeError, ValueError):
+            continue
+    if not numeric_values:
+        return None
+    return sum(numeric_values) / len(numeric_values)
 
 
 class TuyulGPTBridgeWithFundamentals:
-    """
-    Layer-12.5 fusion bridge that enriches AGI reasoning with fundamental context.
+    """Integrator Patch v5.3.3 – Fundamental + AGI Fusion.
+
+    Bridge that enriches market directives with macro fundamentals before
+    executing the Proto AGI Engine. Every request is augmented with a
+    ``fundamental_score`` that the downstream Layer-12 pipeline can consume.
     """
 
-    def __init__(self, log_path: Path = BRIDGE_LOG_PATH) -> None:
-        self.log_path = log_path
-        self.log_path.parent.mkdir(parents=True, exist_ok=True)
+    def __init__(
+        self,
+        engine: ProtoAGIEngine | None = None,
+        feed: FundamentalAutoFeed | None = None,
+    ) -> None:
+        self.engine = engine or ProtoAGIEngine()
+        self.fundamental_feed = feed or FundamentalAutoFeed()
 
     def handle_request(
-        self, pair: str, timeframe: str, market_data: Dict[str, Any]
+        self,
+        pair: str,
+        timeframe: str,
+        market_data: Mapping[str, Any],
     ) -> Dict[str, Any]:
-        timestamp = datetime.now(timezone.utc).isoformat()
-        price_change = self._price_change(market_data.get("closes", []))
-        bias = self._derive_bias(price_change)
-        fundamental_score = self._fundamental_score(
-            returns=market_data.get("returns", []),
-            volumes=market_data.get("volumes", []),
-            price_change=price_change,
-        )
-        fusion_confidence = self._fusion_confidence(
-            fundamental_score=fundamental_score,
-            returns=market_data.get("returns", []),
-        )
-        coherence = self._coherence_score(fusion_confidence, fundamental_score)
-        macro_bias = self._macro_bias_hint(fundamental_score, bias)
+        fundamentals = self.fundamental_feed.compute_fundamental_score()
 
-        result = FusionFundamentalResult(
+        augmented_market: MutableMapping[str, Any] = dict(market_data)
+        augmented_market["fundamental_score"] = fundamentals["fundamental_score"]
+
+        entry_price = _last_numeric(augmented_market.get("closes")) or _last_numeric(
+            augmented_market.get("prices")
+        )
+        stop_loss = _min_numeric(augmented_market.get("lows"))
+        confidence = float(fundamentals.get("fundamental_score", 0.75)) or 0.75
+        wlwci = _average_numeric(augmented_market.get("returns"))
+
+        directive = AGIReasoningOutput(
             pair=pair,
-            timeframe=timeframe,
-            timestamp=timestamp,
-            fusion_confidence=fusion_confidence,
-            bias_direction=bias,
-            coherence_score=coherence,
-            fundamental_score=fundamental_score,
-            macro_bias=macro_bias,
+            confidence=confidence,
+            mode="normal",
+            entry_price=entry_price if entry_price is not None else 0.0,
+            stop_loss=stop_loss if stop_loss is not None else 0.0,
+            twms_payload={
+                "timeframe": timeframe,
+                "bias": augmented_market.get("bias", "neutral"),
+                "fundamental_score": fundamentals["fundamental_score"],
+                "macro_bias": fundamentals.get("macro_bias"),
+                "volatility_index": fundamentals.get("volatility_index"),
+            },
+            wlwci=wlwci,
+            final_report_data={
+                "timeframe": timeframe,
+                "prices": augmented_market.get("prices"),
+                "highs": augmented_market.get("highs"),
+                "lows": augmented_market.get("lows"),
+                "closes": augmented_market.get("closes"),
+                "volumes": augmented_market.get("volumes"),
+                "returns": augmented_market.get("returns"),
+                "fundamental_score": fundamentals["fundamental_score"],
+                "fundamental_context": fundamentals,
+            },
         )
 
-        self._log_result(result)
-        return result.to_dict()
+        result = self.engine.run(directive)
 
-    @staticmethod
-    def _price_change(closes: List[float]) -> float:
-        if len(closes) < 2:
-            return 0.0
-        start, end = closes[0], closes[-1]
-        if start == 0:
-            return 0.0
-        return (end - start) / start
+        decision_payload = result.decision.as_dict()
+        diagnostics = result.diagnostics
 
-    @staticmethod
-    def _derive_bias(price_change: float) -> str:
-        if price_change > 0.0025:
-            return "BULLISH"
-        if price_change < -0.0025:
-            return "BEARISH"
-        return "NEUTRAL"
+        fusion_trace = {
+            "fusion_layers": list(diagnostics.keys()),
+            "risk_modifier": diagnostics.get("mtf_summary", {}).get("risk_modifier"),
+        }
 
-    @staticmethod
-    def _fundamental_score(
-        returns: List[float], volumes: List[float], price_change: float
-    ) -> float:
-        momentum = _safe_mean(returns)
-        volume_trend = 0.0
-        if len(volumes) >= 2 and volumes[0] != 0:
-            volume_trend = (volumes[-1] - volumes[0]) / volumes[0]
-        sentiment = 0.55 + (momentum * 4.5) + (price_change * 3.0)
-        liquidity = 0.5 + volume_trend * 0.25
-        return round(_clamp((sentiment * 0.65) + (liquidity * 0.35)), 3)
+        return {
+            "pair": pair,
+            "timeframe": timeframe,
+            "timestamp": datetime.utcnow().isoformat(),
+            "layer12": decision_payload,
+            "fusion_trace": fusion_trace,
+            "fundamental_context": fundamentals,
+        }
 
-    @staticmethod
-    def _fusion_confidence(
-        fundamental_score: float, returns: List[float]
-    ) -> float:
-        stability = 1.0 - min(abs(_safe_mean(returns)) * 25, 0.35)
-        confidence = (fundamental_score * 0.7) + (stability * 0.3)
-        return round(_clamp(confidence), 3)
 
-    @staticmethod
-    def _coherence_score(fusion_confidence: float, fundamental_score: float) -> float:
-        cohesion = 0.5 + (fusion_confidence - 0.5) * 0.6
-        cohesion += (fundamental_score - 0.5) * 0.3
-        return round(_clamp(cohesion), 3)
+if __name__ == "__main__":
+    dummy_data = {
+        "prices": [1.105, 1.107, 1.109],
+        "highs": [1.110, 1.112, 1.113],
+        "lows": [1.100, 1.103, 1.105],
+        "closes": [1.107, 1.109, 1.111],
+        "volumes": [1000, 1200, 900],
+        "returns": [0.0012, 0.0010, 0.0008],
+    }
 
-    @staticmethod
-    def _macro_bias_hint(fundamental_score: float, bias: str) -> str:
-        if fundamental_score > 0.7 and bias == "BULLISH":
-            return "USD_Weakness"
-        if fundamental_score > 0.7 and bias == "BEARISH":
-            return "USD_Strength"
-        return "Neutral_Macro"
-
-    def _log_result(self, result: FusionFundamentalResult) -> None:
-        with open(self.log_path, "a", encoding="utf-8") as handle:
-            json.dump(result.to_dict(), handle, ensure_ascii=False)
-            handle.write("\n")
+    bridge = TuyulGPTBridgeWithFundamentals()
+    output = bridge.handle_request("XAUUSD", "H1", dummy_data)
+    print(output)
