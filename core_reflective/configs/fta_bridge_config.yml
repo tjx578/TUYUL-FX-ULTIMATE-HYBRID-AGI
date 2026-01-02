@@ -1,7 +1,66 @@
+# ================================================================
+# 🌉 TUYUL ULTIMATE HYBRID AGI v6.0r∞
+# FTA–REFLECTIVE BRIDGE CONFIGURATION FILE
+# Layer-11 Adaptive Integration (FTA → Reflective System)
+# ---------------------------------------------------------------
+# This configuration governs how FTA results are propagated into
+# the Reflective Engine and FRPC system during runtime in Cloud Run.
+# ================================================================
+
 fta_bridge:
   version: v6.0r∞
-  log_path: data/logs/fta_reflective_bridge_log.json
-  sync_vault: true
-  propagation_mode: adaptive
-  frpc_influence_weight: 0.35
-  reflective_sync_channel: "bridge_reflective_v6"
+  author: "Wolf Alpha Analyst"
+  last_update: "2026-01-01T00:00:00Z"
+  mode: "adaptive"              # Options: adaptive | strict | simulation
+  sync_vault: true              # Sync results to Quad Vault (journal_vault/logs)
+  enable_logging: true          # Log reflective propagation
+  cloud_integration: true       # Enable Google Cloud Logging integration
+  log_path: "data/logs/fta_reflective_bridge_log.json"
+  reflective_channel: "bridge_reflective_v6"
+
+  propagation:
+    # FRPC (Fusion Reflective Propagation Coefficient) Control
+    frpc_weight: 0.35           # Proportion of FRPC influence on reflective coherence
+    coherence_weight: 0.45      # Reflective coherence influence
+    adaptive_feedback_weight: 0.20  # Portion fed back from REE (Layer-17)
+    min_confidence_threshold: 0.65
+    max_latency_ms: 1500
+
+  sync_targets:
+    - "quad_vaults/journal_vault/session_logs/"
+    - "quad_vaults/fx_vault/patches/"
+    - "data/logs/fta_reflective_bridge_log.json"
+
+  cloud_sync:
+    cloud_logging_sink: "tuyul_reflective_logs"
+    gcs_vault_bucket: "gs://tuyul-reflective-vault/"
+    pubsub_channel: "projects/tuyul-ai/topics/reflective-bridge-sync"
+    allow_async_upload: true
+    retry_on_failure: true
+    max_retries: 3
+
+  alerts:
+    enable_notifier: true
+    severity_threshold: "warning"
+    notify_channels:
+      - "cloud-logging"
+      - "email"
+    alert_email: "wolf.analytics@tuyul.ai"
+    log_severity_levels:
+      - info
+      - warning
+      - error
+      - critical
+
+  security:
+    auth_required: true
+    api_key_secret_ref: "projects/${PROJECT_ID}/secrets/tuyul-env/versions/latest"
+    allow_local_run: true
+    authorized_services:
+      - "fta_reflective_bridge"
+      - "reflective_cycle_manager"
+      - "fusion_reflective_propagation_coefficient"
+
+# ================================================================
+# End of FTA–Reflective Bridge Config
+# ================================================================
