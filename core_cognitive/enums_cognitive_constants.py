@@ -1,6 +1,5 @@
 """
 enums_cognitive_constants.py – TUYUL FX ULTIMATE HYBRID AGI 🧠⚡
-===============================================================
 
 Kumpulan enumerasi dan konstanta kognitif global.
 Digunakan di seluruh modul reasoning (TWMS, Reflex, Fusion, Reflective).
