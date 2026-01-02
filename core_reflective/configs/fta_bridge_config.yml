@@ -1,0 +1,7 @@
+fta_bridge:
+  version: v6.0r∞
+  log_path: data/logs/fta_reflective_bridge_log.json
+  sync_vault: true
+  propagation_mode: adaptive
+  frpc_influence_weight: 0.35
+  reflective_sync_channel: "bridge_reflective_v6"
