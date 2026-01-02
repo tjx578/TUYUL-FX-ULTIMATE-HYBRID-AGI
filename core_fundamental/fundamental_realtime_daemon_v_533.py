@@ -23,6 +23,8 @@ class FundamentalRealtimeDaemon:
         self.channel = "tuyul_fundamental_feed"
 
     def run(self, interval: int = 60) -> None:
+        if interval <= 0:
+            raise ValueError("interval must be a positive number of seconds")
         print("[DAEMON] 🚀 TUYUL Fundamental Feed v5.3.3 active.")
         print(f"[INFO] Data pushed to Redis channel: {self.channel}")
 
