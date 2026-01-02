@@ -1,1 +1,1 @@
-# Add python dependencies here
+redis>=5.0.0
