@@ -1,1 +1,91 @@
-{}
+{
+	"vault_name": "FX_KNOWLEDGE_REPO",
+	"version": "v6.0r∞",
+	"protocol": "RBP_v3.0+",
+	"type": "Ground Truth Repository",
+	"description": "Vault teori dan prinsip dasar pasar untuk TUYUL FX Ultimate Hybrid AGI.",
+	"last_update": "2026-01-03T00:00:00Z",
+	"cycle_id": "RFXC-20260103-001",
+
+	"fusion_metrics": {
+		"conf12": 0.946,
+		"wlwci": 0.928,
+		"rcadj": 0.018,
+		"fusion_integrity": 0.969,
+		"bias_reflective_phase": "Bullish Reflective Expansion",
+		"fusion_regime": "Mid Expansion"
+	},
+
+	"theoretical_framework": {
+		"foundation_theory": "Smart Money Concepts v3.2",
+		"supportive_model": "Fusion Spectre v5.3+",
+		"auxiliary_engines": [
+			"Equilibrium Momentum Fusion",
+			"CCI–MFI Divergence Detector"
+		],
+		"current_patch": "FX_TWMS_EMA_v6_patch",
+		"conceptual_bias": "Price–Volume–Time Fusion"
+	},
+
+	"market_context": {
+		"pairs_active": [
+			"EURUSD",
+			"GBPUSD",
+			"XAUUSD"
+		],
+		"dominant_currencies": [
+			"USD",
+			"GBP",
+			"EUR"
+		],
+		"macro_regime": "Neutral Expansion",
+		"volatility_index": 0.71,
+		"risk_sentiment": "Moderate Risk-On",
+		"global_liquidity": "Balanced"
+	},
+
+	"reflective_sync": {
+		"linked_vaults": [
+			"HYBRID_VAULT",
+			"KARTEL_VAULT",
+			"JOURNAL_VAULT"
+		],
+		"last_hybrid_sync": "2026-01-03T00:00:00Z",
+		"sync_integrity": 0.971,
+		"coherence_with_hybrid": 0.955,
+		"fx_field_alignment": "Stable",
+		"meta_feedback_received": true
+	},
+
+	"bias_dynamics": {
+		"dominant_bias": "Bullish Reflective",
+		"bias_strength": 0.82,
+		"bias_stability": 0.93,
+		"bias_confidence": 0.945,
+		"bias_momentum_vector": "+0.021",
+		"bias_drift_tendency": "Low"
+	},
+
+	"learning_state": {
+		"last_meta_feedback": "2026-01-03T00:00:00Z",
+		"ree_alignment": 0.958,
+		"meta_learning_applied": true,
+		"drift_correction_active": true,
+		"meta_integrity": 0.972
+	},
+
+	"integrity_audit": {
+		"vault_integrity": 0.969,
+		"drift_index": 0.005,
+		"fusion_stability": 0.961,
+		"reflective_coherence": 0.954,
+		"integrity_status": "Stable"
+	},
+
+	"audit_log": {
+		"auditor": "FusionIntegrator_v5.3+",
+		"last_audit": "2026-01-03T00:00:00Z",
+		"audit_summary": "FX Vault synchronized successfully. Theoretical framework coherent with Hybrid Reflective Layer.",
+		"approved_by": "TUYUL Labs Reflective Systems Division"
+	}
+}
