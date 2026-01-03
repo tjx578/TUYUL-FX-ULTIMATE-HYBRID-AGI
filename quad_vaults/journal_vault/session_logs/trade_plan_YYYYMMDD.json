@@ -1,1 +1,90 @@
-{}
+{
+	"version": "v6.0r∞",
+	"protocol": "RBP_v3.0+",
+	"timestamp": "2026-01-03T00:00:00Z",
+	"session_id": "RFS-20260103-001",
+	"maintained_by": "ReflectiveTradePlanGenerator_v6",
+	"total_setups": 3,
+
+	"trade_plans": [
+		{
+			"pair": "XAUUSD",
+			"bias": "Bullish Reflective",
+			"regime_state": "Mid Expansion",
+			"entry_zone": "2332.45–2336.20",
+			"entry_trigger": "2334.00",
+			"stop_loss": "2326.50",
+			"tp1": "2345.80",
+			"tp2": "2352.10",
+			"rr_ratio": "1:2.1",
+			"risk_pct": 1.0,
+			"lot_size": 1.25,
+			"probability": 0.946,
+			"meta_confidence": 0.961,
+			"reflective_intensity": 1.817,
+			"trq3d_energy": 1.821,
+			"expected_drift": 0.004,
+			"integrity_index": 0.969,
+			"notes": "Strong harmonic expansion; full sync with TRQ–3D field."
+		},
+		{
+			"pair": "GBPUSD",
+			"bias": "Bullish Accumulation",
+			"regime_state": "Early Expansion",
+			"entry_zone": "1.2720–1.2745",
+			"entry_trigger": "1.2732",
+			"stop_loss": "1.2688",
+			"tp1": "1.2790",
+			"tp2": "1.2820",
+			"rr_ratio": "1:1.9",
+			"risk_pct": 1.0,
+			"lot_size": 1.10,
+			"probability": 0.928,
+			"meta_confidence": 0.954,
+			"reflective_intensity": 1.759,
+			"trq3d_energy": 1.765,
+			"expected_drift": 0.006,
+			"integrity_index": 0.964,
+			"notes": "Pre-breakout reflective bias forming; liquidity accumulation complete."
+		},
+		{
+			"pair": "EURUSD",
+			"bias": "Neutral Reflective",
+			"regime_state": "Equilibrium",
+			"entry_zone": "1.0985–1.1000",
+			"entry_trigger": "1.0993",
+			"stop_loss": "1.0960",
+			"tp1": "1.1045",
+			"tp2": "1.1080",
+			"rr_ratio": "1:1.6",
+			"risk_pct": 0.75,
+			"lot_size": 0.95,
+			"probability": 0.904,
+			"meta_confidence": 0.949,
+			"reflective_intensity": 1.676,
+			"trq3d_energy": 1.682,
+			"expected_drift": 0.007,
+			"integrity_index": 0.958,
+			"notes": "Field equilibrium; reflective entry only if breakout confirmed."
+		}
+	],
+
+	"meta_feedback": {
+		"ree_cycle_id": "REE-20260103-001",
+		"learning_adaptation": "Active",
+		"reinforcement_gain": 0.012,
+		"meta_integrity": 0.969,
+		"drift_response": "Controlled",
+		"audit_reference": "reflective_trade_integrity.json"
+	},
+
+	"summary": {
+		"dominant_bias": "Bullish Reflective",
+		"global_integrity": 0.969,
+		"average_probability": 0.926,
+		"average_confidence": 0.955,
+		"reflective_mode": "Harmonic Expansion",
+		"system_status": "Ready for Execution",
+		"audit_result": "PASS"
+	}
+}

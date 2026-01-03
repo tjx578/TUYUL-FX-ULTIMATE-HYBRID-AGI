@@ -1,0 +1,57 @@
+{
+  "version": "v6.0r∞",
+  "protocol": "RBP_v3.0+",
+  "timestamp": "2026-01-03T23:59:00Z",
+  "session_id": "RFS-20260103-001",
+  "audited_by": "ReflectiveTradeIntegrityAudit_v6",
+  "vaults_synced": 4,
+  "meta_layer_included": true,
+
+  "audit_inputs": {
+    "source_trade_log": "trade_execution_log.json",
+    "source_trade_plan": "trade_plan_20260103.json",
+    "source_bias_memory": "kartel_vault/reflective_memory/bias_patterns.yaml",
+    "meta_feedback_reference": "tii_feedback_state.json"
+  },
+
+  "integrity_check": {
+    "hybrid_vault_integrity": 0.972,
+    "fx_vault_integrity": 0.967,
+    "kartel_vault_integrity": 0.971,
+    "journal_vault_integrity": 0.963,
+    "meta_ree_integrity": 0.969,
+    "fusion_integrity": 0.971,
+    "frpc_coherence": 0.958,
+    "global_integrity_index": 0.969,
+    "drift_index": 0.005,
+    "reflective_coherence_index": 0.956,
+    "meta_alignment_index": 0.961,
+    "audit_result": "PASS"
+  },
+
+  "performance_validation": {
+    "win_rate": 0.667,
+    "average_rr": "1:1.9",
+    "profit_factor": 1.78,
+    "total_pnl": "+1.78%",
+    "reflective_intensity_mean": 1.765,
+    "alpha_beta_gamma_stability": "Stable",
+    "drift_response": "Controlled"
+  },
+
+  "meta_feedback_validation": {
+    "ree_learning_gain": 0.011,
+    "reinforcement_delta": "+0.010",
+    "meta_confidence_avg": 0.955,
+    "reflective_learning_state": "Reinforcement Active",
+    "feedback_status": "Positive Adaptation"
+  },
+
+  "audit_summary": {
+    "global_reflective_state": "Harmonic Expansion",
+    "vault_sync_state": "Unified",
+    "meta_cycle_status": "Completed",
+    "reflective_audit_result": "PASS",
+    "system_status": "Stable Reflective Continuum"
+  }
+}

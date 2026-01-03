@@ -1,1 +1,98 @@
-{}
+{
+	"version": "v6.0r∞",
+	"protocol": "RBP_v3.0+",
+	"record_start": "2025-12-15T00:00:00Z",
+	"last_update": "2026-01-03T00:00:00Z",
+	"maintained_by": "ReflectiveEvolutionEngine_v6.0r∞",
+	"total_cycles_recorded": 120,
+
+	"regime_history": [
+		{
+			"cycle_id": "RFXC-20251215-001",
+			"phase": "Accumulation",
+			"pair": "EURUSD",
+			"bias": "Neutral Reflective",
+			"reflective_intensity": 1.421,
+			"alpha": 0.947,
+			"beta": 0.951,
+			"gamma": 0.962,
+			"coherence_index": 0.937,
+			"integrity_index": 0.952,
+			"meta_state": "Calm Stabilization",
+			"notes": "Field building reflective liquidity structure."
+		},
+		{
+			"cycle_id": "RFXC-20251223-004",
+			"phase": "Expansion",
+			"pair": "GBPUSD",
+			"bias": "Bullish Reflective",
+			"reflective_intensity": 1.778,
+			"alpha": 0.972,
+			"beta": 0.965,
+			"gamma": 0.978,
+			"coherence_index": 0.951,
+			"integrity_index": 0.964,
+			"meta_state": "Energetic Propagation",
+			"notes": "Transition from accumulation; reflective field expanding harmonically."
+		},
+		{
+			"cycle_id": "RFXC-20251229-006",
+			"phase": "Late Expansion",
+			"pair": "XAUUSD",
+			"bias": "Bullish Reflective",
+			"reflective_intensity": 1.824,
+			"alpha": 0.981,
+			"beta": 0.972,
+			"gamma": 0.989,
+			"coherence_index": 0.956,
+			"integrity_index": 0.971,
+			"meta_state": "Harmonic Expansion",
+			"notes": "All vaults resonating at reflective coherence > 0.95."
+		},
+		{
+			"cycle_id": "RFXC-20260101-010",
+			"phase": "Reversal",
+			"pair": "GBPUSD",
+			"bias": "Bearish Reflective",
+			"reflective_intensity": 1.633,
+			"alpha": 0.962,
+			"beta": 0.958,
+			"gamma": 0.974,
+			"coherence_index": 0.947,
+			"integrity_index": 0.959,
+			"meta_state": "Reflective Realignment",
+			"notes": "Detected early reversal phase; Fusion₁₂ coherence decreasing slightly."
+		},
+		{
+			"cycle_id": "RFXC-20260103-012",
+			"phase": "Equilibrium",
+			"pair": "XAUUSD",
+			"bias": "Neutral Reflective",
+			"reflective_intensity": 1.692,
+			"alpha": 0.972,
+			"beta": 0.963,
+			"gamma": 0.981,
+			"coherence_index": 0.953,
+			"integrity_index": 0.967,
+			"meta_state": "Reflective Rebalance",
+			"notes": "Field reached temporary reflective equilibrium; drift near 0.004."
+		}
+	],
+
+	"meta_summary": {
+		"dominant_phase": "Expansion",
+		"bias_distribution": {
+			"bullish": 0.62,
+			"bearish": 0.21,
+			"neutral": 0.17
+		},
+		"average_reflective_intensity": 1.671,
+		"average_coherence_index": 0.949,
+		"average_integrity_index": 0.963,
+		"mean_drift_index": 0.005,
+		"meta_alignment": 0.957,
+		"reflective_regime_cycle": "Mid Expansion",
+		"meta_learning_update": "REE-20260103-001",
+		"regime_stability": "Harmonic"
+	}
+}
