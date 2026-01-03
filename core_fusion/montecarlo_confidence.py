@@ -1,38 +1,67 @@
+"""
+🎲 TUYUL FX – Monte Carlo Confidence Engine v5.3+
+
+Layer 12.3 – Reflective Probability Core
+
+Tujuan:
+--------
+Menjalankan simulasi Monte Carlo untuk mengukur keandalan bias
+yang dihasilkan oleh Fusion dan Bias Neutralizer.
+
+Output:
+  - CONF₁₂ Monte Carlo score
+  - Risk-Weighted Reliability (RWR)
+  - Fusion Stability Index (FSI)
+
+Author : TUYUL-KARTEL-FX AGI Dev Team
+Version: 5.3+
+Date   : 2026-01-02
+"""
+
 from __future__ import annotations
 
+import math
 import random
-import statistics
-from dataclasses import dataclass
-from typing import Any, Dict, List
+from dataclasses import asdict, dataclass
+from datetime import datetime
+from typing import Any, Dict
 
 
-def _clamp(value: float, lower: float, upper: float) -> float:
-    return max(lower, min(upper, value))
+# ===========================================================
+# 📈 Data Structure
+# ===========================================================
 
 
-@dataclass(frozen=True)
+@dataclass(slots=True)
 class MonteCarloResult:
+    """Hasil akhir simulasi Monte Carlo untuk fusion layer."""
+
     mean_confidence: float
     reliability_score: float
     stability_index: float
+    total_simulations: int
+    bias_mean: float
+    volatility_mean: float
     reflective_integrity: float
+    timestamp: str
 
     def as_dict(self) -> Dict[str, Any]:
-        return {
-            "mean_confidence": self.mean_confidence,
-            "reliability_score": self.reliability_score,
-            "stability_index": self.stability_index,
-            "reflective_integrity": self.reflective_integrity,
-        }
+        return asdict(self)
+
+
+# ===========================================================
+# 🧩 Monte Carlo Confidence Engine
+# ===========================================================
 
 
 class MonteCarloConfidence:
-    """Run Monte Carlo simulations to estimate bias stability and reliability."""
+    """Simulasi Monte Carlo untuk menilai konsistensi bias reflektif."""
 
-    def __init__(self, simulations: int = 3000, seed: int | None = None) -> None:
-        self.simulations = max(100, simulations)
-        self.seed = seed if seed is not None else 42
+    def __init__(self, simulations: int = 5000, seed: int | None = None):
+        self.simulations = simulations
+        self.random = random.Random(seed)
 
+    # -------------------------------------------------------
     def run(
         self,
         *,
@@ -41,52 +70,71 @@ class MonteCarloConfidence:
         volatility_index: float,
         confidence_weight: float = 1.0,
     ) -> MonteCarloResult:
-        rng = random.Random(self.seed)
-        normalized_volatility = _clamp(volatility_index, 0.0, 1.0)
-        normalized_coherence = _clamp(coherence / 100, 0.0, 1.0)
-        weighted_bias = _clamp(base_bias * confidence_weight, 0.0, 1.0)
+        """
+        Jalankan simulasi ribuan kali untuk mengestimasi keandalan bias.
 
-        samples = self._simulate_samples(
-            rng=rng,
-            weighted_bias=weighted_bias,
-            coherence=normalized_coherence,
-            volatility=normalized_volatility,
-        )
+        Args:
+            base_bias: bias netral hasil dari BiasNeutralizer (0–1)
+            coherence: reflective coherence factor (0–100)
+            volatility_index: indeks VIX (10–40)
+            confidence_weight: bobot keyakinan reflektif (default=1.0)
+        """
 
-        mean_confidence = statistics.fmean(samples)
-        variance = statistics.pvariance(samples)
-
-        reliability_score = _clamp(1 - variance * 3.5, 0.0, 1.0)
-        stability_index = _clamp(
-            (1 - variance) * 100 * (1 - normalized_volatility * 0.2),
-            0.0,
-            100.0,
-        )
-        reflective_integrity = _clamp(mean_confidence * reliability_score * 120, 0.0, 100.0)
-
-        return MonteCarloResult(
-            mean_confidence=round(mean_confidence, 4),
-            reliability_score=round(reliability_score, 4),
-            stability_index=round(stability_index, 2),
-            reflective_integrity=round(reflective_integrity, 2),
-        )
-
-    def _simulate_samples(
-        self,
-        *,
-        rng: random.Random,
-        weighted_bias: float,
-        coherence: float,
-        volatility: float,
-    ) -> List[float]:
-        samples: List[float] = []
-        volatility_sigma = 0.05 + volatility * 0.08
-        coherence_lift = (coherence - 0.5) * 0.2
+        samples: list[float] = []
+        vol_samples: list[float] = []
 
         for _ in range(self.simulations):
-            perturbation = rng.gauss(0.0, volatility_sigma)
-            sample = weighted_bias + coherence_lift + perturbation
-            bounded_sample = _clamp(sample, 0.0, 1.0)
-            samples.append(bounded_sample)
+            noise = self.random.gauss(0, 0.08)
+            volatility_effect = max(0.4, 1 - (volatility_index - 15) * 0.03)
+            adjusted = base_bias + (noise * volatility_effect)
+            normalized = max(0.0, min(1.0, adjusted))
+            samples.append(normalized)
+            vol_samples.append(volatility_effect)
 
-        return samples
+        mean_conf = round(sum(samples) / len(samples), 4)
+        bias_mean = round(base_bias, 4)
+        volatility_mean = round(sum(vol_samples) / len(vol_samples), 4)
+
+        std_dev = math.sqrt(sum([(x - mean_conf) ** 2 for x in samples]) / len(samples))
+        reliability_score = round(max(0.0, 1.0 - std_dev * 3.5), 4)
+
+        stability_index = round(
+            (reliability_score * 0.6 + (coherence / 100) * 0.4) * 100,
+            2,
+        )
+
+        reflective_integrity = round(
+            ((mean_conf * reliability_score) * confidence_weight) * 100,
+            2,
+        )
+
+        return MonteCarloResult(
+            mean_confidence=mean_conf,
+            reliability_score=reliability_score,
+            stability_index=stability_index,
+            total_simulations=self.simulations,
+            bias_mean=bias_mean,
+            volatility_mean=volatility_mean,
+            reflective_integrity=reflective_integrity,
+            timestamp=datetime.utcnow().isoformat(),
+        )
+
+
+# ===========================================================
+# 🧪 Test Mode
+# ===========================================================
+
+if __name__ == "__main__":
+    print("🎲 TUYUL FX – Monte Carlo Confidence Engine v5.3+ (Test Mode)")
+
+    engine = MonteCarloConfidence(simulations=5000, seed=42)
+    result = engine.run(
+        base_bias=0.58,
+        coherence=83.5,
+        volatility_index=18.7,
+        confidence_weight=1.1,
+    )
+
+    print("\n--- Monte Carlo Simulation Result ---")
+    for k, v in result.as_dict().items():
+        print(f"{k:25s}: {v}")
