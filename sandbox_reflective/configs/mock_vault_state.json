@@ -1,0 +1,76 @@
+{
+  "version": "6.0r++",
+  "description": "Mock vault state for TUYUL FX Reflective Sandbox (Offline Emulation Mode)",
+  "last_update": "2026-01-03T21:25:00Z",
+
+  "hybrid_vault": {
+    "integrity_index": 0.957,
+    "reflective_coherence": 0.949,
+    "sync_state": "stable",
+    "energy_field": {
+      "alpha": 1.032,
+      "beta": 0.968,
+      "gamma": 1.015,
+      "reflective_intensity": 1.08
+    },
+    "harmonic_alignment": 0.953,
+    "meta_sync": true,
+    "last_sync_time": "2026-01-03T21:20:00Z"
+  },
+
+  "fx_vault": {
+    "integrity_index": 0.952,
+    "reflective_coherence": 0.944,
+    "current_phase": "Mid Expansion",
+    "bias_direction": "Bullish",
+    "smc_structure": "BOS",
+    "trq3d_snapshot": {
+      "mean_energy": 1.07,
+      "reflective_intensity": 1.10
+    },
+    "active_liquidity_zone": [1.2610, 1.2645],
+    "sync_state": "active"
+  },
+
+  "kartel_vault": {
+    "integrity_index": 0.955,
+    "reflective_memory": {
+      "alpha_beta_gamma_trace": [1.02, 0.98, 1.01],
+      "reflective_field_state": "stable",
+      "adaptive_gain": 0.012,
+      "drift_trace": {
+        "alpha_drift": -0.003,
+        "beta_drift": 0.002,
+        "gamma_drift": 0.004
+      }
+    },
+    "feedback_history": {
+      "meta_integrity_trend": [0.943, 0.949, 0.953, 0.956],
+      "reflective_coherence_trend": [0.939, 0.942, 0.945, 0.948]
+    },
+    "last_feedback_cycle": "2026-01-03T21:18:00Z"
+  },
+
+  "journal_vault": {
+    "integrity_index": 0.961,
+    "reflective_log_count": 1842,
+    "last_reflective_entry": "2026-01-03T21:15:20Z",
+    "meta_learning_cycles": 248,
+    "field_stability": "stable",
+    "reflective_summary": {
+      "average_meta_integrity": 0.957,
+      "average_reflective_coherence": 0.946,
+      "average_field_stability": 0.952
+    },
+    "vault_status": "synchronized"
+  },
+
+  "quad_vault_sync": {
+    "integrity_alignment_index": 0.953,
+    "reflective_coherence_index": 0.947,
+    "harmonic_resonance": 0.955,
+    "last_full_sync": "2026-01-03T21:20:30Z",
+    "sync_regime": "Harmonic Lock",
+    "status": "complete"
+  }
+}

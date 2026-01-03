@@ -1,0 +1,94 @@
+# ============================================================
+# Reflective Simulation Parameters — TUYUL FX Sandbox v6.0r++
+# ============================================================
+# Konfigurasi ini digunakan oleh:
+# - run_reflective_simulation.py
+# - test_feedback_drift_loop.py
+# untuk mensimulasikan TRQ–3D energy field & feedback drift loop.
+# ============================================================
+
+version: "6.0r++"
+last_update: "2026-01-03T21:15:00Z"
+
+# ------------------------------------------------------------
+# General Simulation Settings
+# ------------------------------------------------------------
+simulation:
+  total_cycles: 10                # Jumlah siklus simulasi
+  random_seed: 42                 # Seed untuk reproduksi hasil
+  save_logs: true                 # Simpan log hasil simulasi
+  log_output_path: "sandbox_reflective/logs/"
+  verbose_mode: true
+  enable_visual_plot: false       # Untuk versi CLI sandbox dengan matplotlib
+
+# ------------------------------------------------------------
+# Reflective Field Parameters (alpha-beta-gamma baseline)
+# ------------------------------------------------------------
+reflective_field:
+  alpha_baseline: 1.00
+  beta_baseline: 1.00
+  gamma_baseline: 1.00
+  alpha_variance: 0.025           # Batas variasi acak tiap siklus
+  beta_variance: 0.020
+  gamma_variance: 0.022
+  intensity_base: 1.05            # Nilai dasar energi TRQ–3D
+  intensity_fluctuation: 0.08     # Rentang fluktuasi energi reflektif
+  harmonic_alignment_target: 0.95 # Target keseimbangan resonansi
+
+# ------------------------------------------------------------
+# Drift Simulation Parameters
+# ------------------------------------------------------------
+drift_simulation:
+  enable_drift: true
+  drift_amplitude_alpha: 0.018
+  drift_amplitude_beta: 0.015
+  drift_amplitude_gamma: 0.017
+  drift_rate: 0.75                # Persentase siklus yang akan mengandung drift
+  recovery_trigger_threshold: 0.93
+  recovery_cooldown_cycles: 2
+
+# ------------------------------------------------------------
+# TRQ–3D Energy Simulation Parameters
+# ------------------------------------------------------------
+trq3d_energy:
+  base_energy: 1.00
+  mean_energy_noise: 0.03
+  reflective_intensity_min: 0.90
+  reflective_intensity_max: 1.20
+  volume_scaling_factor: 1.15
+  time_resonance_factor: 0.97
+  randomize_energy_direction: true
+
+# ------------------------------------------------------------
+# Adaptive Learning Parameters
+# ------------------------------------------------------------
+adaptive_learning:
+  enable_learning_feedback: true
+  learning_gain_min: 0.006
+  learning_gain_max: 0.020
+  decay_rate: 0.88
+  boost_factor: 1.12
+  feedback_sync_interval: 2        # Setiap berapa siklus feedback dihitung ulang
+  reflective_coherence_target: 0.94
+
+# ------------------------------------------------------------
+# Pseudo Vault Sync (Offline Emulation)
+# ------------------------------------------------------------
+vault_emulation:
+  enable_vault_sync: true
+  vault_state_file: "sandbox_reflective/configs/mock_vault_state.json"
+  sync_interval_cycles: 3
+  integrity_target: 0.95
+  auto_recovery: true
+  save_snapshots: true
+  snapshot_path: "sandbox_reflective/logs/vault_snapshots/"
+
+# ------------------------------------------------------------
+# Logging Configuration
+# ------------------------------------------------------------
+logging:
+  enable_reflective_log: true
+  log_level: "INFO"
+  log_file_name: "reflective_sandbox.log"
+  rotate_logs_after_cycles: 15
+  retention_days: 7
