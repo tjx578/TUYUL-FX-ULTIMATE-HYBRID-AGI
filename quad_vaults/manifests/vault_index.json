@@ -1,1 +1,47 @@
-{}
+{
+	"version": "v6.0r∞",
+	"timestamp": "2026-01-03T00:00:00Z",
+	"managed_by": "HybridReflectiveBridgeManager_v6",
+	"vault_registry": [
+		{
+			"name": "Hybrid Vault",
+			"path": "quad_vaults/hybrid_vault/",
+			"function": "Reflective Orchestrator & Bias Governor",
+			"status": "Active",
+			"last_sync": "2026-01-03T00:00:00Z"
+		},
+		{
+			"name": "FX Vault",
+			"path": "quad_vaults/fx_vault/",
+			"function": "Theoretical Repository & Market Logic Base",
+			"status": "Active",
+			"last_sync": "2026-01-03T00:00:00Z"
+		},
+		{
+			"name": "Kartel Vault",
+			"path": "quad_vaults/kartel_vault/",
+			"function": "Reflective Memory Host & α–β–γ Field Controller",
+			"status": "Primary Host",
+			"last_sync": "2026-01-03T00:00:00Z"
+		},
+		{
+			"name": "Journal Vault",
+			"path": "quad_vaults/journal_vault/",
+			"function": "Reflective Record & Integrity Archive",
+			"status": "Online",
+			"last_sync": "2026-01-03T00:00:00Z"
+		}
+	],
+	"meta_layer": {
+		"path": "core_meta/",
+		"state": "Reflective Adaptive Learning",
+		"integrity": 0.969,
+		"last_meta_cycle": "REE-20260103-001"
+	},
+	"governance": {
+		"protocol": "RBP_v3.0+",
+		"quad_vault_sync_status": "Unified",
+		"global_integrity": 0.969,
+		"audit_reference": "vault_integrity_audit.yml"
+	}
+}

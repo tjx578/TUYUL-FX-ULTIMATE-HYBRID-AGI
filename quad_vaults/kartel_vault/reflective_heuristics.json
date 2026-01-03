@@ -1,0 +1,74 @@
+{
+  "version": "v6.0r∞",
+  "timestamp": "2026-01-03T00:00:00Z",
+  "generated_by": "ReflectiveEvolutionEngine_v6.0r∞",
+  "meta_feedback_cycle": "REE-20260103-001",
+
+  "active_heuristics": [
+    {
+      "heuristic_id": "HRC-BULL-EXP-01",
+      "name": "Bullish Reflective Expansion",
+      "alpha_range": [0.965, 0.985],
+      "beta_range": [0.950, 0.975],
+      "gamma_range": [0.970, 0.990],
+      "field_state": "Expansion",
+      "coherence_threshold": 0.94,
+      "reflective_weight": 0.36,
+      "probability_factor": 0.87,
+      "bias_alignment": "Bullish",
+      "expected_outcome": "Upward energy propagation",
+      "meta_confidence": 0.961
+    },
+    {
+      "heuristic_id": "HRC-BEAR-REV-02",
+      "name": "Bearish Reflective Reversal",
+      "alpha_range": [0.940, 0.970],
+      "beta_range": [0.955, 0.980],
+      "gamma_range": [0.965, 0.988],
+      "field_state": "Reversal",
+      "coherence_threshold": 0.93,
+      "reflective_weight": 0.33,
+      "probability_factor": 0.79,
+      "bias_alignment": "Bearish",
+      "expected_outcome": "Downward reflective inversion",
+      "meta_confidence": 0.954
+    },
+    {
+      "heuristic_id": "HRC-NEU-EQ-03",
+      "name": "Neutral Reflective Equilibrium",
+      "alpha_range": [0.955, 0.975],
+      "beta_range": [0.960, 0.975],
+      "gamma_range": [0.965, 0.980],
+      "field_state": "Equilibrium",
+      "coherence_threshold": 0.95,
+      "reflective_weight": 0.31,
+      "probability_factor": 0.72,
+      "bias_alignment": "Neutral",
+      "expected_outcome": "Sideways reflective stabilization",
+      "meta_confidence": 0.947
+    }
+  ],
+
+  "adaptive_drift_rules": {
+    "trigger_threshold": 0.008,
+    "alpha_beta_ratio_limit": 1.02,
+    "beta_gamma_ratio_limit": 1.03,
+    "drift_response": "Activate recalibration & heuristic adjustment",
+    "meta_update_interval_hours": 6
+  },
+
+  "reflective_interactions": {
+    "bullish_expansion_to_reversal": 0.17,
+    "bearish_reversal_to_equilibrium": 0.21,
+    "neutral_equilibrium_to_expansion": 0.14,
+    "reflective_cross_transition_coherence": 0.951
+  },
+
+  "integrity_metrics": {
+    "heuristic_integrity_index": 0.967,
+    "reflective_coherence": 0.955,
+    "meta_alignment": 0.958,
+    "field_drift_index": 0.004,
+    "status": "Stable"
+  }
+}
