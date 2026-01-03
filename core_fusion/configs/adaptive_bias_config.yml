@@ -1,1 +1,34 @@
-# placeholder
+# ==========================================================
+# 🧠 Adaptive Reflective Bias Config — TUYUL FX v5.8r++
+# Layer: Fusion → RGO → Meta Reflective
+# Integrasi ke: Bias Neutralizer, Fusion Integrator, REE Adaptive Analysis
+# ==========================================================
+
+adaptive_bias:
+  # Bobot sinkronisasi antara layer reflektif
+  fusion_weight: 0.33
+  trq3d_weight: 0.33
+  meta_weight: 0.34
+
+  # Sensitivitas adaptif terhadap drift αβγ
+  alpha_sensitivity: 0.8
+  beta_sensitivity: 0.9
+  gamma_sensitivity: 0.85
+
+  # Bias alignment
+  neutral_zone_min: -0.15
+  neutral_zone_max: 0.15
+  max_bias_shift_per_cycle: 0.05     # Maksimum perubahan bias tiap reflektif cycle
+
+  # Auto-tuning parameters (Meta-Learning Integration)
+  auto_recalibrate: true
+  ree_feedback_enabled: true
+  reflective_feedback_gain: 0.92
+  integrity_guard_min: 0.95          # Jika integritas < nilai ini → sistem akan menahan bias shift
+
+meta:
+  version: 6.0
+  build: "reflective-production"
+  updated: "2026-01-03T15:00:00Z"
+  vault_layer: "Fusion Spectre Layer"
+  description: "Konfigurasi adaptif untuk penyesuaian bias reflektif antar layer (Fusion ↔ Meta ↔ RGO)."
