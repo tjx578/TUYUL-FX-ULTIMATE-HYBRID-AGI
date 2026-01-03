@@ -20,3 +20,16 @@ def cloud_log_event(event: str, payload: Dict[str, Any]) -> None:
     with open(CLOUD_LOG_PATH, "a", encoding="utf-8") as log_file:
         json.dump(record, log_file, ensure_ascii=False)
         log_file.write("\n")
+
+
+class CloudLoggerService:
+    """Simple logger that writes structured events to the cloud log file."""
+
+    def info(self, message: str, payload: Dict[str, Any] | None = None) -> None:
+        cloud_log_event("info", {"message": message, **(payload or {})})
+
+    def warning(self, message: str, payload: Dict[str, Any] | None = None) -> None:
+        cloud_log_event("warning", {"message": message, **(payload or {})})
+
+    def error(self, message: str, payload: Dict[str, Any] | None = None) -> None:
+        cloud_log_event("error", {"message": message, **(payload or {})})
