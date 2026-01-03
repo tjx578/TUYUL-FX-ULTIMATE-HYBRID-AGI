@@ -1,1 +1,68 @@
-{}
+{
+  "version": "v5.3.3",
+  "last_updated": "2026-01-02T00:00:00Z",
+  "description": "Economic & Monetary Terms Reference for TUYUL FX AGI Hybrid",
+  "categories": {
+    "monetary_policy": {
+      "hawkish": "Kebijakan yang mendukung pengetatan moneter untuk mengendalikan inflasi. Biasanya meningkatkan suku bunga dan memperkuat mata uang.",
+      "dovish": "Kebijakan longgar untuk mendorong pertumbuhan. Biasanya menurunkan suku bunga dan melemahkan mata uang.",
+      "neutral": "Sikap bank sentral yang menunggu data baru sebelum mengambil keputusan kebijakan.",
+      "rate_hike": "Kenaikan suku bunga oleh bank sentral, sinyal kebijakan hawkish.",
+      "rate_cut": "Penurunan suku bunga, sinyal kebijakan dovish.",
+      "forward_guidance": "Komunikasi resmi bank sentral mengenai arah kebijakan di masa depan."
+    },
+    "macro_indicators": {
+      "cpi": "Consumer Price Index, indikator inflasi utama.",
+      "gdp": "Gross Domestic Product, ukuran pertumbuhan ekonomi total.",
+      "pmi": "Purchasing Managers Index, indikator aktivitas manufaktur dan jasa.",
+      "nfp": "Non-Farm Payrolls, laporan pekerjaan utama AS yang berdampak tinggi.",
+      "ppi": "Producer Price Index, mengukur inflasi di tingkat produsen.",
+      "yield_spread": "Selisih antara yield obligasi tenor panjang dan pendek, mengindikasikan risiko resesi."
+    },
+    "risk_sentiment": {
+      "risk_on": "Kondisi pasar optimis, aset berisiko (AUD, NZD, CAD, saham) menguat.",
+      "risk_off": "Kondisi pasar takut, aset safe haven (JPY, CHF, USD, emas) menguat.",
+      "vix": "Volatility Index, ukuran ketakutan pasar global.",
+      "carry_trade": "Strategi meminjam mata uang suku bunga rendah untuk membeli mata uang dengan suku bunga tinggi."
+    },
+    "commodities": {
+      "wti": "West Texas Intermediate crude oil, acuan harga minyak dunia untuk CAD.",
+      "brent": "Brent crude oil, acuan global harga minyak.",
+      "gold": "Logam mulia safe haven, sering berkorelasi negatif dengan USD.",
+      "iron_ore": "Komoditas utama ekspor Australia, mempengaruhi AUD.",
+      "dairy_index": "Harga ekspor susu Selandia Baru, mempengaruhi NZD."
+    },
+    "market_phrases": {
+      "soft_landing": "Skenario ekonomi melambat tanpa masuk resesi.",
+      "hard_landing": "Resesi akibat pengetatan kebijakan moneter yang agresif.",
+      "stagflation": "Kombinasi inflasi tinggi dan pertumbuhan rendah.",
+      "quantitative_tightening": "Pengetatan likuiditas oleh bank sentral melalui pengurangan neraca.",
+      "quantitative_easing": "Kebijakan longgar dengan pembelian aset untuk menambah likuiditas.",
+      "forward_premium": "Selisih positif antara kurs forward dan spot; sinyal ekspektasi penguatan mata uang."
+    },
+    "policy_tools": {
+      "interest_rate": "Suku bunga acuan kebijakan moneter.",
+      "open_market_operations": "Kegiatan jual beli surat berharga oleh bank sentral untuk mengatur likuiditas.",
+      "reserve_requirement": "Jumlah dana minimum yang harus disimpan bank di bank sentral.",
+      "discount_rate": "Suku bunga pinjaman langsung dari bank sentral ke bank komersial."
+    },
+    "market_behavior": {
+      "safe_haven": "Aset yang dicari saat ketidakpastian meningkat (JPY, CHF, USD, Gold).",
+      "liquidity_risk": "Risiko tidak dapat menjual aset dengan cepat tanpa kehilangan nilai besar.",
+      "volatility_breakout": "Pergerakan harga tajam setelah periode tenang, sering dipicu oleh berita besar."
+    },
+    "fusion_context": {
+      "fundamental_confidence": "Skor 0–100 yang merepresentasikan keyakinan makro sistem terhadap arah bias.",
+      "policy_diff": "Selisih antara kebijakan dua bank sentral dalam satu pair (hawkish–dovish differential).",
+      "macro_bias": "Kecenderungan arah makro (USD_strength, Risk_off, Commodity_rebound, dll).",
+      "reflective_bias": "Bias hasil reasoning AGI berdasarkan kombinasi makro dan perilaku pasar."
+    }
+  },
+  "metadata": {
+    "author": "TUYUL KARTEL DEV TEAM",
+    "integrity": "validated",
+    "language": "id-en mix",
+    "update_cycle": "quarterly",
+    "integration_layer": "L13-L15 (Reflective Reasoning Core)"
+  }
+}
