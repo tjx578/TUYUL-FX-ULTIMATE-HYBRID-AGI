@@ -1,0 +1,78 @@
+# ============================================================
+# TUYUL FX Ultimate - Reflective Audit Cloud Job
+# Version: v6.0r++
+# ============================================================
+# Deskripsi:
+#   Cron Job otomatis yang menjalankan siklus audit reflektif
+#   setiap jam di lingkungan Google Cloud Run / Cloud Scheduler.
+# ============================================================
+
+apiVersion: scheduler.cloud.google.com/v1
+kind: Job
+metadata:
+  name: reflective-audit-job
+  namespace: tuyul-fx-runtime
+  labels:
+    project: tuyul-fx-ultimate
+    component: reflective-system
+    type: audit
+
+spec:
+  schedule: "0 * * * *"   # Setiap 1 jam sekali (00 menit)
+  timeZone: "Asia/Jakarta"
+  suspend: false
+
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: tuyul-fx-cloudrun-sa
+          restartPolicy: Never
+
+          containers:
+            - name: reflective-audit-container
+              image: gcr.io/tuyul-fx-ultimate/reflective-engine:6.0r++
+              imagePullPolicy: Always
+
+              env:
+                - name: RUNTIME_MODE
+                  value: "cloud_reflective_audit"
+                - name: VAULT_PATH
+                  value: "/app/quad_vaults/"
+                - name: LOG_PATH
+                  value: "/app/data/logs/reflective_audit_log.json"
+                - name: CLOUD_ENDPOINT
+                  value: "https://reflective-meta.tuyulfx.app/v1/sync/audit"
+                - name: META_LEARNING_DRIVER
+                  value: "core_meta.meta_learning_driver"
+                - name: AUDIT_INTEGRITY_THRESHOLD
+                  value: "0.93"
+                - name: AUDIT_COHERENCE_THRESHOLD
+                  value: "0.94"
+                - name: AUTO_RECOVERY_ENABLED
+                  value: "true"
+                - name: VAULT_SYNC_MODE
+                  value: "harmonic_lock"
+                - name: REFLECTIVE_LAYER
+                  value: "core_reflective.reflective_cycle_manager"
+
+              args:
+                - "python"
+                - "core_reflective/reflective_trade_integrity_audit_v6_production.py"
+                - "--mode"
+                - "cloud"
+                - "--auto-sync"
+                - "true"
+
+              resources:
+                limits:
+                  memory: "1024Mi"
+                  cpu: "1000m"
+                requests:
+                  memory: "512Mi"
+                  cpu: "500m"
+
+          volumes:
+            - name: vault-storage
+              persistentVolumeClaim:
+                claimName: tuyul-fx-vault-pvc

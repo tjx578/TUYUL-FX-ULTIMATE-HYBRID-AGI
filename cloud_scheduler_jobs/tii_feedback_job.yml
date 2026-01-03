@@ -1,0 +1,83 @@
+# ============================================================
+# TUYUL FX Ultimate - Reflective Intelligence Feedback Job
+# Version: v6.0r++
+# ============================================================
+# Deskripsi:
+#   Cloud Scheduler job yang menjalankan loop umpan balik reflektif
+#   dari TII (Trade Integrity Interface) ke Meta-Learning Layer (REE)
+#   untuk memperkuat pembelajaran adaptif sistem reflektif.
+# ============================================================
+
+apiVersion: scheduler.cloud.google.com/v1
+kind: Job
+metadata:
+  name: tii-feedback-job
+  namespace: tuyul-fx-runtime
+  labels:
+    project: tuyul-fx-ultimate
+    component: reflective-feedback
+    type: sync
+
+spec:
+  schedule: "*/15 * * * *"   # Setiap 15 menit
+  timeZone: "Asia/Jakarta"
+  suspend: false
+
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: tuyul-fx-cloudrun-sa
+          restartPolicy: Never
+
+          containers:
+            - name: tii-feedback-container
+              image: gcr.io/tuyul-fx-ultimate/reflective-intelligence:6.0r++
+              imagePullPolicy: Always
+
+              env:
+                - name: RUNTIME_MODE
+                  value: "tii_feedback_sync"
+                - name: TII_FEEDBACK_PATH
+                  value: "/app/data/logs/tii_feedback_log.json"
+                - name: META_FEEDBACK_PATH
+                  value: "/app/core_meta/configs/ree_learning_curve.json"
+                - name: CLOUD_ENDPOINT
+                  value: "https://reflective-meta.tuyulfx.app/v1/feedback/tii"
+                - name: META_LEARNING_DRIVER
+                  value: "core_meta.meta_learning_driver"
+                - name: REFLECTIVE_ADAPTER
+                  value: "core_reflective.tii_reflective_feedback_adapter_v6_production"
+                - name: AUTO_INTEGRITY_ADJUST
+                  value: "true"
+                - name: AUTO_GAIN_CALIBRATION
+                  value: "true"
+                - name: FEEDBACK_SYNC_MODE
+                  value: "neural_bridge"
+                - name: COHERENCE_TARGET
+                  value: "0.945"
+                - name: INTEGRITY_TARGET
+                  value: "0.95"
+                - name: META_RESONANCE_TARGET
+                  value: "0.947"
+
+              args:
+                - "python"
+                - "core_reflective/tii_reflective_feedback_adapter_v6_production.py"
+                - "--mode"
+                - "feedback"
+                - "--upload"
+                - "true"
+
+              resources:
+                limits:
+                  memory: "768Mi"
+                  cpu: "750m"
+                requests:
+                  memory: "384Mi"
+                  cpu: "400m"
+
+          volumes:
+            - name: feedback-storage
+              persistentVolumeClaim:
+                claimName: tuyul-fx-feedback-pvc

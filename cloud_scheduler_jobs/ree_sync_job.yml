@@ -1,0 +1,82 @@
+# ============================================================
+# TUYUL FX Ultimate - REE Sync Job (Meta-Learning Reflective Sync)
+# Version: v6.0r++
+# ============================================================
+# Deskripsi:
+#   Cloud Scheduler job untuk sinkronisasi Meta-Learning Reflective Engine (REE)
+#   setiap 30 menit antara layer Meta ↔ Reflective ↔ Vault ↔ Cloud.
+# ============================================================
+
+apiVersion: scheduler.cloud.google.com/v1
+kind: Job
+metadata:
+  name: ree-sync-job
+  namespace: tuyul-fx-runtime
+  labels:
+    project: tuyul-fx-ultimate
+    component: meta-learning
+    type: sync
+
+spec:
+  schedule: "*/30 * * * *"   # Setiap 30 menit
+  timeZone: "Asia/Jakarta"
+  suspend: false
+
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: tuyul-fx-cloudrun-sa
+          restartPolicy: Never
+
+          containers:
+            - name: ree-sync-container
+              image: gcr.io/tuyul-fx-ultimate/meta-reflective-engine:6.0r++
+              imagePullPolicy: Always
+
+              env:
+                - name: RUNTIME_MODE
+                  value: "meta_reflective_sync"
+                - name: META_CONFIG_PATH
+                  value: "/app/core_meta/configs/ree_cycle_config.yml"
+                - name: CLOUD_SCHEDULE_PATH
+                  value: "/app/core_meta/configs/ree_cloud_schedule.yml"
+                - name: CLOUD_ENDPOINT
+                  value: "https://reflective-meta.tuyulfx.app/v1/sync/meta"
+                - name: JOURNAL_VAULT_PATH
+                  value: "/app/quad_vaults/journal_vault/"
+                - name: META_LEARNING_DRIVER
+                  value: "core_meta.meta_learning_driver"
+                - name: SYNC_INTEGRITY_THRESHOLD
+                  value: "0.94"
+                - name: SYNC_COHERENCE_THRESHOLD
+                  value: "0.93"
+                - name: AUTO_TUNE_GAIN
+                  value: "true"
+                - name: ENABLE_DRIFT_ANALYSIS
+                  value: "true"
+                - name: SYNC_MODE
+                  value: "harmonic_alignment"
+                - name: REFLECTIVE_LAYER
+                  value: "core_reflective.reflective_cycle_manager"
+
+              args:
+                - "python"
+                - "core_meta/meta_learning_driver.py"
+                - "--mode"
+                - "sync"
+                - "--update-cloud"
+                - "true"
+
+              resources:
+                limits:
+                  memory: "1024Mi"
+                  cpu: "1000m"
+                requests:
+                  memory: "512Mi"
+                  cpu: "500m"
+
+          volumes:
+            - name: meta-vault-storage
+              persistentVolumeClaim:
+                claimName: tuyul-fx-meta-vault-pvc
