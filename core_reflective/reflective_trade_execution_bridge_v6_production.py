@@ -152,6 +152,31 @@ def _write_audit(data: Dict[str, Any]) -> None:
         json.dump(audit, file, indent=2)
 
 
+def reflective_trade_execution_bridge_v6_production(
+    plan: Dict[str, Any], vault_integrity: float
+) -> Dict[str, Any]:
+    """Lightweight execution bridge used by the reflective pipeline."""
+    timestamp = datetime.datetime.utcnow().isoformat() + "Z"
+    confidence = float(plan.get("confidence", 0.0))
+    integrity = float(vault_integrity)
+    status = "Executed" if confidence >= 0.8 and integrity >= 0.9 else "Deferred"
+
+    execution_record = {
+        "timestamp": timestamp,
+        "entry": plan.get("entry"),
+        "tp": plan.get("tp"),
+        "sl": plan.get("sl"),
+        "type": plan.get("type"),
+        "confidence": confidence,
+        "integrity": integrity,
+        "execution_status": status,
+        "note": "Pipeline execution bridge v6",
+    }
+
+    _write_log(execution_record)
+    return execution_record
+
+
 if __name__ == "__main__":
     result = execute_reflective_trade("XAUUSD", simulate=True)
     print(json.dumps(result, indent=2))
