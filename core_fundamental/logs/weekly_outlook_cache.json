@@ -1,1 +1,107 @@
-{}
+{
+  "version": "v5.3.3",
+  "engine": "WeeklyOutlookSync",
+  "layer": "L11.3-MACRO-WEEKLY",
+  "generated_at": "2026-01-02T07:00:00Z",
+  "summary_period": {
+    "start": "2025-12-26T00:00:00Z",
+    "end": "2026-01-02T00:00:00Z"
+  },
+  "macro_overview": {
+    "global_risk_sentiment": "Controlled Risk-On",
+    "average_vix": 17.2,
+    "average_dxy": 104.9,
+    "average_yield_spread": -0.44,
+    "oil_trend": "bearish",
+    "gold_trend": "bullish",
+    "comment": "Pasar global cenderung optimis menjelang rilis NFP AS. Komoditas bercampur: minyak melemah, emas naik akibat ekspektasi dovish Fed."
+  },
+  "regional_summary": {
+    "USD": {
+      "policy_bias": "neutral_to_hawkish",
+      "economic_trend": "resilient",
+      "confidence": 0.83,
+      "direction": "BULLISH"
+    },
+    "EUR": {
+      "policy_bias": "neutral",
+      "economic_trend": "slowing",
+      "confidence": 0.74,
+      "direction": "NEUTRAL"
+    },
+    "GBP": {
+      "policy_bias": "hawkish",
+      "economic_trend": "stable",
+      "confidence": 0.78,
+      "direction": "BULLISH"
+    },
+    "JPY": {
+      "policy_bias": "ultra_dovish",
+      "economic_trend": "flat",
+      "confidence": 0.66,
+      "direction": "BEARISH"
+    },
+    "CAD": {
+      "policy_bias": "neutral_to_dovish",
+      "economic_trend": "weakening",
+      "confidence": 0.68,
+      "direction": "BEARISH"
+    },
+    "AUD": {
+      "policy_bias": "neutral",
+      "economic_trend": "recovering",
+      "confidence": 0.72,
+      "direction": "BULLISH"
+    },
+    "NZD": {
+      "policy_bias": "neutral",
+      "economic_trend": "recovering",
+      "confidence": 0.71,
+      "direction": "NEUTRAL"
+    },
+    "CHF": {
+      "policy_bias": "neutral_to_dovish",
+      "economic_trend": "stable",
+      "confidence": 0.69,
+      "direction": "NEUTRAL"
+    }
+  },
+  "pair_bias_matrix": {
+    "Strong_Buy": ["USDCAD", "USDJPY", "GBPCAD"],
+    "Moderate_Buy": ["AUDJPY", "NZDJPY"],
+    "Strong_Sell": ["EURUSD", "AUDCAD"],
+    "Moderate_Sell": ["NZDCAD", "EURGBP"],
+    "Neutral": ["GBPUSD", "EURJPY"]
+  },
+  "macro_themes": [
+    "DXY stabil di atas 104 mendukung kekuatan USD",
+    "Oil di bawah $75 melemahkan CAD",
+    "Emas di atas $2050 per ons memperkuat AUD",
+    "Sentimen global tetap risk-on menjelang data AS"
+  ],
+  "weekly_confidence_summary": {
+    "macro_confidence_avg": 0.728,
+    "policy_diff_trend": "USD_Advantage_Broadening",
+    "volatility_regime": "Moderate",
+    "market_regime": "Controlled_Risk_On",
+    "bias_consistency": 0.84,
+    "integrity_index": 0.97
+  },
+  "integration_status": {
+    "synced_to_fusion": true,
+    "fusion_timestamp": "2026-01-02T07:10:00Z",
+    "sync_target": "fusion_layer_L12",
+    "meta_learning_status": "active"
+  },
+  "metadata": {
+    "records_included": 7,
+    "derived_from": [
+      "data/vault/logs/fundamental_feed_log.json",
+      "data/macro/policy_matrix.json",
+      "data/commodities/weekly_snapshot.json"
+    ],
+    "vault_path": "data/vault/logs/weekly_outlook_cache.json",
+    "auto_rotation_policy": "weekly",
+    "author": "TUYUL-KARTEL-FX AGI Dev Team"
+  }
+}
