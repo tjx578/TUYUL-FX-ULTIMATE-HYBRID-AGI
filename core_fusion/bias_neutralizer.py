@@ -1,6 +1,5 @@
 """
 ⚖️ TUYUL FX – Bias Neutralizer Engine v5.3+
-===========================================
 
 Layer 12.1 – Fusion Bias Stabilization Core
 

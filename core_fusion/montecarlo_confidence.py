@@ -1,6 +1,5 @@
 """
 🎲 TUYUL FX – Monte Carlo Confidence Engine v5.3+
-================================================
 
 Layer 12.3 – Reflective Probability Core
 
