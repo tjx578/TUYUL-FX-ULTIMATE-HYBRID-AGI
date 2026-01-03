@@ -38,6 +38,18 @@ class ReflectiveSyncService:
 			return self._last_status
 		return self._read_vault_index()
 
+	async def restart_cycle(self) -> Dict[str, Any]:
+		"""Return a stubbed reflective cycle restart payload."""
+		payload = {
+			"cycle_id": "RFXC-20260103-001",
+			"fusion_confidence": 0.951,
+			"reflective_coherence": 0.956,
+			"integrity_index": 0.969,
+			"timestamp": datetime.utcnow().isoformat(),
+		}
+		self._last_status = None
+		return payload
+
 	def _read_vault_index(self) -> Dict[str, Any]:
 		if not os.path.exists(self.vault_index_path):
 			return {
