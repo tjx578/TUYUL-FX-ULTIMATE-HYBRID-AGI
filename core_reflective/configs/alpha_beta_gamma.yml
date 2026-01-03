@@ -1,1 +1,74 @@
-# placeholder
+# ============================================================
+# ⚙️ TUYUL FX Reflective Gradient Configuration (α–β–γ)
+# Version: v6.0r++
+# Layer: RGO (Reflective Gradient Orchestrator)
+# Author: TUYUL FX AGI Core Team 🐺
+# ============================================================
+# Catatan:
+#   File ini mendefinisikan konfigurasi awal untuk gradient field
+#   α–β–γ, digunakan oleh Adaptive Field Stabilizer dan TRQ–3D Engine.
+# ============================================================
+
+alpha:
+	base_value: 1.275
+	drift_tolerance: 0.025
+	adaptive_gain: 0.92
+	description: >
+		α mewakili medan reflektif dominan yang terhubung ke struktur harga utama.
+		Biasanya dikaitkan dengan momentum ekspansi awal dan kekuatan buyer–side.
+
+beta:
+	base_value: 1.260
+	drift_tolerance: 0.030
+	adaptive_gain: 0.88
+	description: >
+		β adalah medan reflektif sekunder — stabilisator antara α dan γ.
+		Berfungsi menjaga keseimbangan antara tekanan akumulasi dan ekspansi.
+
+gamma:
+	base_value: 1.245
+	drift_tolerance: 0.035
+	adaptive_gain: 0.85
+	description: >
+		γ adalah medan reflektif dasar (foundation energy).
+		Bertanggung jawab untuk kontrol stabilitas jangka panjang (macro vault link).
+
+gradient_control:
+	threshold_low: 0.02
+	threshold_mid: 0.05
+	threshold_high: 0.08
+	integrity_limit: 0.95
+	sync_mode: harmonic
+	description: >
+		Pengaturan batas drift reflektif αβγ.
+		Jika gradient > threshold_high, sistem memasuki fase Reversal (Vault re-sync).
+
+reflective_sync:
+	enable_auto_resync: true
+	resync_interval_minutes: 30
+	vault_sync_targets:
+		- Hybrid
+		- FX
+		- Kartel
+		- Journal
+	resync_trigger_on_integrity_drop: true
+	description: >
+		Mekanisme sinkronisasi Vault otomatis. Jika integrity_index turun di bawah 0.95,
+		sistem akan memicu Adaptive Resync (melalui Hybrid Reflective Bridge Manager).
+
+meta_learning_feedback:
+	enabled: true
+	ree_learning_rate: 0.002
+	ree_drift_decay: 0.97
+	ree_field_feedback_weight: 0.65
+	ree_sync_target: Meta-Layer
+	description: >
+		Parameter adaptif untuk pembelajaran reflektif (REE Layer).
+		Mengontrol bagaimana α–β–γ diadaptasi melalui loop Meta-Learning.
+
+logging:
+	enable_detailed_log: true
+	log_file: data/logs/alpha_beta_gamma_field_log.json
+	precision: 5
+	description: >
+		Konfigurasi logging gradien reflektif (untuk audit dan sinkronisasi Vault).

@@ -1,0 +1,94 @@
+# ============================================================
+# ⚙️ TUYUL FX Algorithmic Precision Thresholds
+# Version: v6.0r++
+# Layer: FRPC & Reflective Precision Engine
+# Author: TUYUL FX AGI Core Team 🧠🐺
+# ============================================================
+# Catatan:
+#   File ini mengatur ambang presisi, toleransi bias, dan koherensi kalkulasi
+#   antar layer FRPC, TRQ–3D, dan Reflective Cycle.
+# ============================================================
+
+frpc_precision:
+  conf12_tolerance: 0.03
+  wlwci_tolerance: 0.02
+  rcadj_limit: 0.08
+  propagation_stability_min: 0.93
+  propagation_stability_target: 0.96
+  precision_floor: 0.92
+  description: >
+    Parameter utama untuk menjaga kestabilan koefisien FRPC.
+    Jika nilai WLWCI atau CONF₁₂ turun di bawah 0.92, sistem masuk mode recalibration.
+
+bias_neutralization:
+  enable_auto_bias_control: true
+  bias_detection_sensitivity: 0.94
+  max_bias_deviation: 0.05
+  correction_strength: 0.85
+  reflective_bias_reset_threshold: 0.9
+  description: >
+    Sistem penetralan bias reflektif antara Fusion dan Reflective Layer.
+    Jika bias melebihi 0.05, TUYUL-BOT akan menyesuaikan FRPC melalui
+    bias_neutralizer.py dan fusion_integrator.py.
+
+reflective_precision_alignment:
+  alignment_mode: "dynamic"
+  cross_layer_correlation_target: 0.95
+  minimum_coherence: 0.92
+  alpha_beta_gamma_alignment: true
+  alpha_bias_weight: 0.4
+  beta_bias_weight: 0.35
+  gamma_bias_weight: 0.25
+  description: >
+    Pengaturan alignment reflektif antar medan αβγ dan FRPC.
+    Menentukan bobot adaptasi tiap komponen energi dalam kalkulasi presisi.
+
+precision_feedback_loop:
+  ree_feedback_enabled: true
+  ree_feedback_weight: 0.6
+  ree_error_learning_rate: 0.002
+  ree_error_decay: 0.95
+  ree_update_interval_seconds: 30
+  description: >
+    Integrasi feedback REE Layer (Meta-Learning Reflective Engine).
+    FRPC akan diperbarui berdasarkan error historis presisi kalkulasi reflektif.
+
+trade_precision_control:
+  reflective_trade_precision_target: 0.94
+  reflective_trade_precision_min: 0.9
+  frpc_reflective_ratio_target: 1.02
+  reflective_energy_tolerance: 0.04
+  reflective_execution_sync: true
+  description: >
+    Parameter kontrol presisi untuk eksekusi trading reflektif.
+    Jika presisi trade < 0.9, sistem menunda eksekusi dan memicu audit ulang.
+
+coherence_integrity_guard:
+  reflective_coherence_floor: 0.9
+  reflective_integrity_floor: 0.94
+  coherence_deviation_limit: 0.05
+  auto_realign_on_drop: true
+  realignment_delay_seconds: 5
+  description: >
+    Perlindungan integritas koherensi FRPC–Reflective.
+    Jika koherensi turun terlalu cepat, sistem menjalankan recalibration otomatis.
+
+meta_integration:
+  ree_sync_enabled: true
+  ree_precision_sync_factor: 0.97
+  ree_reflective_target: 0.96
+  ree_meta_learning_curve_target: 0.95
+  ree_adaptive_feedback_delay_seconds: 10
+  description: >
+    Integrasi penuh dengan Meta-Learning Cycle (REE Layer).
+    Tujuan utamanya menjaga stabilitas presisi antar layer reflektif.
+
+logging:
+  enable_precision_log: true
+  log_file: data/logs/algo_precision_thresholds_log.json
+  include_frpc_metrics: true
+  include_bias_correction: true
+  include_meta_feedback: true
+  description: >
+    Konfigurasi logging untuk precision runtime.
+    Setiap perhitungan FRPC dan bias correction dicatat ke Journal Vault.

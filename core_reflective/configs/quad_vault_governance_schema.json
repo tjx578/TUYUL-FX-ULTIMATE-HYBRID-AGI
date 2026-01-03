@@ -1,1 +1,148 @@
-{}
+{
+	"version": "6.0r++",
+	"system": "TUYUL FX Ultimate Hybrid AGI",
+	"layer": "Quad Vault Reflective Governance",
+	"description": "Schema defining the authority, sync rules, and reflective data governance between the four Vaults (Hybrid, FX, Kartel, Journal).",
+
+	"vaults": {
+		"Hybrid": {
+			"role": "Central Reflective Coordinator",
+			"integrity_target": 0.97,
+			"sync_priority": "critical",
+			"data_scope": ["Fusion", "Reflective", "Meta", "Fundamental"],
+			"vault_path": "quad_vaults/hybrid_vault/",
+			"governance_key": "HYBRID_PRIMARY_LOCK",
+			"field_bias_type": "Alpha-Dominant",
+			"propagation_mode": "Bidirectional",
+			"audit_required": true,
+			"backup_frequency_minutes": 30
+		},
+		"FX": {
+			"role": "Market Field Execution Vault",
+			"integrity_target": 0.95,
+			"sync_priority": "high",
+			"data_scope": ["PriceAction", "SmartMoney", "FusionPrecision"],
+			"vault_path": "quad_vaults/fx_vault/",
+			"governance_key": "FX_MIRROR_LOCK",
+			"field_bias_type": "Beta-Stabilized",
+			"propagation_mode": "Forward",
+			"audit_required": true,
+			"backup_frequency_minutes": 45
+		},
+		"Kartel": {
+			"role": "Reflective Memory & Bias Repository",
+			"integrity_target": 0.94,
+			"sync_priority": "medium",
+			"data_scope": ["ReflectiveHeuristics", "BiasPatterns", "EvolutionTraces"],
+			"vault_path": "quad_vaults/kartel_vault/",
+			"governance_key": "KARTEL_SYNC_LOCK",
+			"field_bias_type": "Gamma-Resonant",
+			"propagation_mode": "Reflective",
+			"audit_required": true,
+			"backup_frequency_minutes": 60
+		},
+		"Journal": {
+			"role": "System Memory & Audit Archive",
+			"integrity_target": 0.93,
+			"sync_priority": "low",
+			"data_scope": ["Logs", "Audits", "ExecutionReports", "MetaFeedback"],
+			"vault_path": "quad_vaults/journal_vault/",
+			"governance_key": "JOURNAL_LOG_LOCK",
+			"field_bias_type": "Neutral",
+			"propagation_mode": "Unidirectional",
+			"audit_required": false,
+			"backup_frequency_minutes": 120
+		}
+	},
+
+	"sync_protocol": {
+		"method": "Reflective Harmonic Sync (RHS)",
+		"coherence_target": 0.95,
+		"integrity_floor": 0.92,
+		"latency_tolerance_ms": 200,
+		"resync_on_drift": true,
+		"resync_trigger_threshold": 0.94,
+		"harmonic_alignment_factor": 0.97,
+		"propagation_delay_compensation": true
+	},
+
+	"authority_hierarchy": {
+		"top_level_vault": "Hybrid",
+		"execution_vault": "FX",
+		"reflective_memory_vault": "Kartel",
+		"archival_vault": "Journal",
+		"escalation_rules": {
+			"integrity_breach": "Escalate to Hybrid → Audit via Kartel → Archive to Journal",
+			"coherence_drift": "Re-sync FX and Kartel via Reflective Bridge",
+			"meta_feedback_drift": "Send correction loop to REE Layer"
+		}
+	},
+
+	"governance_rules": {
+		"max_allowed_drift": 0.05,
+		"min_required_integrity": 0.93,
+		"coherence_resync_interval_minutes": 15,
+		"integrity_audit_interval_minutes": 30,
+		"meta_feedback_cycle_minutes": 45,
+		"auto_lock_on_violation": true,
+		"lock_release_condition": "Integrity ≥ 0.95 and Coherence ≥ 0.94"
+	},
+
+	"vault_interactions": {
+		"Hybrid↔FX": {
+			"type": "Direct Field Sync",
+			"propagation_weight": 1.00,
+			"integrity_transfer_factor": 0.96
+		},
+		"Hybrid↔Kartel": {
+			"type": "Reflective Memory Exchange",
+			"propagation_weight": 0.97,
+			"integrity_transfer_factor": 0.94
+		},
+		"FX↔Journal": {
+			"type": "Execution Audit Feed",
+			"propagation_weight": 0.95,
+			"integrity_transfer_factor": 0.93
+		},
+		"Kartel↔Journal": {
+			"type": "Heuristic Archive Sync",
+			"propagation_weight": 0.92,
+			"integrity_transfer_factor": 0.91
+		}
+	},
+
+	"meta_integration": {
+		"ree_feedback_enabled": true,
+		"ree_integrity_target": 0.95,
+		"ree_adaptive_bias_correction": true,
+		"ree_drift_tolerance": 0.04,
+		"ree_sync_interval_minutes": 20
+	},
+
+	"audit_schema": {
+		"enabled": true,
+		"audit_interval_minutes": 30,
+		"report_output_path": "quad_vaults/journal_vault/session_logs/reflective_trade_integrity.json",
+		"log_integrity_values": true,
+		"track_conf12_wlwci": true,
+		"store_audit_in_journal": true,
+		"alert_on_integrity_drop": true
+	},
+
+	"security": {
+		"encryption": "AES-256-GCM",
+		"checksum_validation": "SHA3-512",
+		"vault_key_env": "TUYUL_VAULT_KEY",
+		"integrity_verification_interval": 900,
+		"auto_revoke_on_breach": true
+	},
+
+	"monitoring": {
+		"enable_vault_monitor": true,
+		"latency_log_file": "data/logs/vault_latency_monitor.json",
+		"integrity_log_file": "data/logs/vault_integrity_monitor.json",
+		"alert_channel": "vault_integrity",
+		"notify_bridge_manager": true,
+		"notify_cloud_monitor": true
+	}
+}

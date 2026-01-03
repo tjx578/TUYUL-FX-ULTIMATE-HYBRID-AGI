@@ -1,0 +1,115 @@
+# ============================================================
+# 🧩 TUYUL FX Reflective Pipeline Control
+# Version: v6.0r++
+# Layer: Reflective Orchestration System
+# Author: TUYUL FX AGI Core Team 🐺
+# ============================================================
+# Catatan:
+#   File ini mengatur urutan dan prioritas eksekusi pipeline reflektif.
+#   Digunakan oleh System Bootstrap, Cycle Manager, dan Cloud Scheduler.
+# ============================================================
+
+runtime:
+  mode: "production"
+  allow_auto_restart: true
+  scheduler_enabled: true
+  scheduler_interval_minutes: 15
+  cloud_runtime_target: "Google Cloud Run"
+  description: >
+    Mode runtime utama sistem reflektif.
+    Jika 'allow_auto_restart' true, sistem otomatis restart saat koherensi turun.
+    Disarankan untuk environment produksi TUYUL FX Cloud.
+
+sequence_order:
+  - trq3d_engine
+  - adaptive_field_stabilizer
+  - fusion_reflective_propagation_coefficient_v6
+  - reflective_cycle_manager
+  - reflective_trade_pipeline_controller_v6_production
+  - reflective_trade_integrity_audit_v6_production
+  - reflective_evolution_engine_v6
+  - hybrid_reflective_bridge_manager
+  - tuyul_bots_reflective_sync
+  description: >
+    Urutan eksekusi pipeline reflektif penuh.
+    Seluruh modul akan berjalan secara berurutan sesuai daftar ini,
+    memastikan tidak ada konflik antara layer energi dan audit.
+
+priority_layers:
+  high:
+    - trq3d_engine
+    - reflective_cycle_manager
+    - reflective_trade_integrity_audit_v6_production
+  medium:
+    - adaptive_field_stabilizer
+    - fusion_reflective_propagation_coefficient_v6
+    - reflective_evolution_engine_v6
+  low:
+    - tuyul_bots_reflective_sync
+    - hybrid_reflective_bridge_manager
+  description: >
+    Mengatur prioritas layer reflektif.
+    Layer prioritas tinggi akan dijalankan terlebih dahulu pada siklus utama.
+
+reflective_safety:
+  max_retries_on_failure: 3
+  integrity_min_required: 0.95
+  reflective_energy_alert: 1.20
+  coherence_drop_recovery: true
+  coherence_recovery_method: "Adaptive Meta Feedback"
+  description: >
+    Sistem pengaman reflektif runtime.
+    Jika integritas Vault turun < 0.95 → sistem akan memicu mekanisme Adaptive Recovery.
+
+vault_sync:
+  enabled: true
+  sync_order:
+    - Hybrid
+    - FX
+    - Kartel
+    - Journal
+  resync_on_integrity_drop: true
+  resync_threshold: 0.94
+  resync_trigger_module: "hybrid_reflective_bridge_manager"
+  description: >
+    Mengontrol sinkronisasi lintas Vault. Sinkronisasi ulang terjadi bila integrity_index < 0.94.
+
+meta_feedback:
+  ree_feedback_enabled: true
+  ree_trigger_after_cycles: 3
+  ree_drift_threshold: 0.04
+  ree_learning_mode: "Dynamic"
+  ree_feedback_target: "reflective_evolution_engine_v6"
+  description: >
+    Pengaturan untuk Meta Reflective Feedback Loop (REE Layer).
+    Sistem akan mengaktifkan feedback adaptif setelah 3 siklus reflektif.
+
+trade_execution:
+  enable_auto_execution: true
+  execution_mode: "hybrid"
+  max_open_trades: 3
+  reflective_confidence_min: 0.90
+  reflective_stop_on_integrity_drop: true
+  journal_log_enabled: true
+  description: >
+    Pengaturan otomatisasi eksekusi trade reflektif.
+    Jika integritas turun di bawah 0.95, sistem otomatis menghentikan seluruh trade.
+
+logging:
+  enable_pipeline_log: true
+  log_file: data/logs/reflective_pipeline_control_log.json
+  precision: 5
+  alert_on_error: true
+  description: >
+    Logging utama untuk pipeline reflektif.
+    Semua aktivitas pipeline (start, finish, error, sync) disimpan di file log ini.
+
+integration_targets:
+  - "fusion_reflective_propagation_coefficient_v6_production.py"
+  - "reflective_cycle_manager.py"
+  - "reflective_trade_pipeline_controller_v6_production.py"
+  - "reflective_evolution_engine_v6.py"
+  - "tuyul_bots_reflective_sync.py"
+  - "meta_learning_driver.py"
+  description: >
+    Daftar modul yang wajib mematuhi aturan pipeline kontrol reflektif ini.

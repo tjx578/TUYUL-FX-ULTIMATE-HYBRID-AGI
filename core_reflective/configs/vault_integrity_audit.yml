@@ -1,1 +1,111 @@
-# placeholder
+# ============================================================
+# 🧾 TUYUL FX Vault Integrity Audit Configuration
+# Version: v6.0r++
+# Layer: Reflective Vault & Integrity Subsystem
+# Author: TUYUL FX AGI Core Team 🧠🐺
+# ============================================================
+# Catatan:
+#   File ini digunakan untuk mengatur proses audit integritas lintas Vault.
+#   Audit dilakukan pada setiap Reflective Cycle atau ketika integritas turun.
+# ============================================================
+
+audit_cycle:
+	enabled: true
+	frequency_minutes: 30
+	audit_depth_level: 3       # Level 1 = basic, 2 = full, 3 = deep reflective scan
+	audit_mode: "reflective"
+	include_meta_layer: true
+	auto_recover_on_fail: true
+	description: >
+		Menentukan seberapa dalam audit Vault dilakukan.
+		Deep reflective scan akan memeriksa αβγ drift, energy coherence, dan journal logs.
+
+integrity_parameters:
+	vault_integrity_threshold: 0.95
+	reflective_coherence_min: 0.92
+	reflective_coherence_target: 0.96
+	cross_vault_deviation_limit: 0.05
+	latency_tolerance_ms: 150
+	reflection_lag_tolerance: 0.03
+	description: >
+		Nilai minimum integritas yang harus dipenuhi agar sistem reflektif tetap stabil.
+		Jika salah satu parameter jatuh di bawah ambang ini → trigger sinkronisasi ulang.
+
+vault_nodes:
+	- name: Hybrid
+		weight: 0.30
+		sync_required: true
+	- name: FX
+		weight: 0.25
+		sync_required: true
+	- name: Kartel
+		weight: 0.25
+		sync_required: true
+	- name: Journal
+		weight: 0.20
+		sync_required: true
+	description: >
+		Definisi Vault Nodes beserta bobot dan kebutuhan sinkronisasi.
+		Bobot digunakan untuk menghitung Cross-Vault Coherence Index (CVCI).
+
+checksum_validation:
+	enabled: true
+	method: "SHA3-512"
+	include_reflective_logs: true
+	include_meta_feedback: true
+	include_frpc_snapshot: true
+	description: >
+		Sistem checksum reflektif untuk memastikan data Vault tidak mengalami korupsi.
+		SHA3-512 digunakan untuk validasi FRPC dan Meta-Learning Snapshot.
+
+cross_vault_analysis:
+	enable_cvci: true
+	cvci_target: 0.96
+	cvci_alert_level: 0.90
+	cvci_warning_level: 0.88
+	cvci_failure_threshold: 0.85
+	cvci_drift_alert_delta: 0.03
+	cvci_resync_trigger: true
+	description: >
+		Cross-Vault Coherence Index (CVCI) adalah metrik reflektif utama untuk audit Vault.
+		Jika CVCI < 0.90 → sistem akan melakukan re-sync antar Vault (Hybrid Bridge).
+
+meta_feedback_link:
+	ree_integration_enabled: true
+	ree_feedback_weight: 0.65
+	ree_adaptive_correction: true
+	ree_sync_after_audit: true
+	ree_delay_after_audit_seconds: 15
+	description: >
+		Integrasi dengan Meta-Learning Layer (REE).
+		Jika ditemukan drift reflektif, REE Layer akan menyesuaikan αβγ field.
+
+auto_sync_policy:
+	trigger_on_integrity_drop: true
+	trigger_on_cvci_drop: true
+	max_retry_attempts: 3
+	retry_interval_seconds: 10
+	resync_method: "adaptive_reflective_bridge"
+	description: >
+		Kebijakan sinkronisasi otomatis Vault saat audit gagal atau integritas menurun.
+
+reporting:
+	enable_audit_log: true
+	log_file: data/logs/vault_integrity_audit_log.json
+	send_to_journal_vault: true
+	generate_summary_report: true
+	report_format: "json"
+	include_integrity_history: true
+	description: >
+		Pengaturan pelaporan hasil audit Vault.
+		Laporan dikirim ke Journal Vault & digunakan oleh ree_integrity_controller.py.
+
+notifications:
+	alert_on_failure: true
+	alert_on_warning: true
+	notification_channel: "system_integrity"
+	notify_vault_manager: true
+	notify_cloud_monitor: true
+	description: >
+		Sistem notifikasi runtime ketika audit gagal.
+		Terhubung langsung ke cloud_monitor_service.py dan vault_service.py.

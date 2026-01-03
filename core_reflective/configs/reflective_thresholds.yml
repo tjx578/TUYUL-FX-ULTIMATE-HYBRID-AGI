@@ -1,1 +1,94 @@
-# placeholder
+# ============================================================
+# ⚙️ TUYUL FX Reflective Threshold Configuration
+# Version: v6.0r++
+# Layer: Fusion–Reflective–Meta Synchronization
+# Author: TUYUL FX AGI Core Team 🧠🐺
+# ============================================================
+# Catatan:
+#   File ini mendefinisikan ambang batas utama untuk parameter reflektif global.
+#   Nilai-nilai ini digunakan oleh FRPC (Fusion Reflective Propagation Coefficient),
+#   Reflective Cycle Manager, dan Trade Integrity Audit.
+# ============================================================
+
+# ------------------------------------------------------------
+# 🧠 Fusion Reflective Propagation Coefficient (FRPC)
+# ------------------------------------------------------------
+fusion_reflective:
+	conf12_min: 0.93
+	conf12_target: 0.97
+	wlwci_min: 0.90
+	wlwci_target: 0.96
+	rcadj_max_drift: 0.08
+	integrity_target: 0.95
+	description: >
+		Parameter FRPC digunakan untuk mengukur stabilitas sinkronisasi
+		antara Fusion Layer dan Reflective Layer.
+		Nilai CONF₁₂ & WLWCI harus ≥ 0.95 untuk integritas penuh.
+
+# ------------------------------------------------------------
+# 🔁 Reflective Cycle Thresholds
+# ------------------------------------------------------------
+cycle_manager:
+	reflective_coherence_min: 0.92
+	reflective_coherence_stable: 0.95
+	reflective_coherence_critical: 0.88
+	meta_integrity_min: 0.93
+	field_gradient_tolerance: 0.05
+	description: >
+		Nilai minimum dan batas stabil untuk menjalankan siklus reflektif penuh.
+		Jika coherence < 0.92 → sistem masuk mode Drift Correction (Meta Resync).
+
+# ------------------------------------------------------------
+# 🧩 Trade Integrity & Audit Parameters
+# ------------------------------------------------------------
+trade_integrity:
+	reflective_audit_pass: 0.95
+	reflective_audit_warning: 0.90
+	reflective_audit_fail: 0.85
+	frpc_stability_limit: 0.07
+	reflective_intensity_min: 0.85
+	description: >
+		Digunakan oleh Reflective Trade Integrity Audit untuk menentukan
+		apakah hasil trading sesuai dengan kondisi reflektif ideal.
+		Jika nilai audit < 0.9, sistem akan mengaktifkan ree_feedback_interface.py.
+
+# ------------------------------------------------------------
+# 🔬 Meta-Learning (REE Layer) Feedback Thresholds
+# ------------------------------------------------------------
+meta_learning:
+	ree_coherence_target: 0.96
+	ree_drift_correction_limit: 0.05
+	ree_integrity_floor: 0.93
+	ree_gradient_resync_trigger: 0.045
+	ree_learning_rate_dynamic: true
+	ree_min_learning_rate: 0.001
+	ree_max_learning_rate: 0.005
+	description: >
+		Parameter reflektif untuk Meta-Learning (Reflective Evolution Engine).
+		Mengontrol kapan REE melakukan adaptive resync terhadap drift αβγ.
+
+# ------------------------------------------------------------
+# ⚡ Reflective Energy Parameters (TRQ–3D)
+# ------------------------------------------------------------
+trq3d_energy:
+	reflective_intensity_target: 1.00
+	reflective_intensity_alert: 0.85
+	reflective_energy_spike_limit: 1.20
+	reflective_energy_decay_factor: 0.94
+	trq3d_mean_energy_floor: 0.85
+	description: >
+		Nilai-nilai ini digunakan oleh TRQ–3D Engine untuk mendeteksi
+		anomali energi reflektif antar timeframe. 
+		Jika intensity > 1.20 → sistem akan memicu Field Re-Stabilization.
+
+# ------------------------------------------------------------
+# 🧩 Logging & Monitoring Settings
+# ------------------------------------------------------------
+logging:
+	enable_detailed_log: true
+	log_file: data/logs/reflective_thresholds_monitor.json
+	alert_if_coherence_drop_below: 0.9
+	alert_channel: "system_integrity"
+	description: >
+		Konfigurasi untuk logging runtime reflektif threshold dan
+		integrasi dengan Reflective Logger.

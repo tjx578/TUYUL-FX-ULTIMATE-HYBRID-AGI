@@ -1,1 +1,110 @@
-# placeholder
+# ============================================================
+# 🧬 TUYUL FX Quad Vault Synchronization Configuration
+# Version: v6.0r++
+# Layer: Reflective Vault Governance System
+# Author: TUYUL FX AGI Core Team 🐺
+# ============================================================
+# Catatan:
+#   File ini mengatur sinkronisasi lintas Vault: Hybrid, FX, Kartel, Journal.
+#   Setiap sinkronisasi memvalidasi integritas, latency, dan koherensi.
+# ============================================================
+
+vault_sync_system:
+	enabled: true
+	sync_mode: "asynchronous_reflective"
+	sync_cycle_interval_minutes: 15
+	resync_on_integrity_drop: true
+	resync_trigger_threshold: 0.94
+	integrity_target: 0.96
+	sync_integrity_floor: 0.93
+	description: >
+		Sistem sinkronisasi utama Quad Vault.
+		Jika integritas salah satu Vault turun di bawah 0.94, sistem akan otomatis melakukan re-sync lintas node.
+
+vault_priority_order:
+	- Hybrid
+	- FX
+	- Kartel
+	- Journal
+	description: >
+		Urutan prioritas sinkronisasi. Hybrid selalu menjadi sumber data utama.
+		FX dan Kartel mengikuti Hybrid, lalu Journal menyimpan hasil akhir sinkronisasi.
+
+latency_tolerance:
+	hybrid_to_fx: 35
+	fx_to_kartel: 40
+	kartel_to_journal: 45
+	vault_internal_max_latency_ms: 120
+	alert_on_latency_spike: true
+	alert_threshold_ms: 200
+	description: >
+		Pengaturan latency antar Vault.
+		Jika latency antar vault > 200ms, sinkronisasi akan dijeda dan re-route diulang otomatis.
+
+sync_propagation:
+	propagation_model: "Harmonic Field Propagation"
+	propagation_rate: 0.97
+	propagation_decay_factor: 0.93
+	propagation_integrity_factor: 0.96
+	adaptive_resync_enabled: true
+	description: >
+		Model propagasi sinkronisasi lintas Vault menggunakan Harmonic Field.
+		Memastikan energi reflektif (αβγ) menyebar secara stabil di semua node.
+
+cross_vault_integrity:
+	enable_cvci: true
+	cvci_target: 0.96
+	cvci_alert_threshold: 0.91
+	cvci_resync_on_drop: true
+	cvci_gradient_tolerance: 0.03
+	description: >
+		Cross-Vault Coherence Index (CVCI) menjaga sinkronisasi antar Vault.
+		Jika nilai turun di bawah 0.91, sistem akan memicu re-sync adaptif via Hybrid Bridge.
+
+sync_triggers:
+	trigger_on_cycle_end: true
+	trigger_on_trade_audit: true
+	trigger_on_meta_feedback: true
+	trigger_on_integrity_event: true
+	description: >
+		Event yang memicu sinkronisasi Vault otomatis setelah aktivitas reflektif utama.
+
+meta_feedback_link:
+	ree_sync_enabled: true
+	ree_sync_interval_cycles: 3
+	ree_drift_correction_limit: 0.04
+	ree_meta_feedback_strength: 0.6
+	description: >
+		Integrasi Meta-Learning Reflective Layer (REE).
+		Setiap 3 siklus reflektif, Meta Layer akan mengoreksi drift antar Vault.
+
+recovery_policy:
+	auto_restart_on_failure: true
+	restart_delay_seconds: 10
+	max_retry_attempts: 3
+	recovery_integrity_target: 0.95
+	resync_after_recovery: true
+	description: >
+		Kebijakan pemulihan otomatis jika sinkronisasi gagal.
+		Setelah recovery, sistem akan langsung menjalankan resync lintas Vault.
+
+logging:
+	enable_vault_sync_log: true
+	log_file: data/logs/tuyul_quad_vault_sync_log.json
+	include_latency_stats: true
+	include_integrity_values: true
+	include_cvci_metrics: true
+	send_to_journal_vault: true
+	description: >
+		Konfigurasi logging sinkronisasi lintas Vault.
+		Semua event sinkronisasi dan metrik integritas disimpan ke Journal Vault.
+
+notifications:
+	alert_on_integrity_drop: true
+	alert_on_cvci_alert: true
+	alert_channel: "vault_integrity"
+	notify_bridge_manager: true
+	notify_cloud_monitor: true
+	description: >
+		Sistem notifikasi ketika integritas Vault atau CVCI turun.
+		Terhubung langsung dengan Hybrid Reflective Bridge dan Cloud Monitor.

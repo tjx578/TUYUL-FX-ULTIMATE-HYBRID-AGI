@@ -1,1 +1,130 @@
-# placeholder
+# ============================================================
+# ⚡ TUYUL FX Reflective Energy Spectrum Specification
+# Version: v6.0r++
+# Layer: TRQ–3D Energy Engine
+# Author: TUYUL FX AGI Core Team 🐺
+# ============================================================
+# Catatan:
+#   File ini mendefinisikan parameter energi reflektif berbasis TRQ–3D
+#   (Price × Time × Volume), digunakan untuk mendeteksi fase ekspansi,
+#   reversal, dan intensitas reflektif lintas timeframe.
+# ============================================================
+
+energy_parameters:
+	reflective_intensity_base: 1.00
+	reflective_intensity_alert: 1.20
+	reflective_decay_factor: 0.94
+	reflective_amplification_rate: 1.08
+	trq3d_energy_threshold_low: 0.80
+	trq3d_energy_threshold_high: 1.25
+	trq3d_field_coherence_min: 0.90
+	description: >
+		Parameter dasar energi reflektif.
+		Digunakan untuk mendeteksi perubahan energi antar timeframe.
+		Jika energy > 1.25 → sistem masuk fase “Expansion Spike”.
+
+alpha_field:
+	phase_bias: "Expansion"
+	sensitivity: 0.96
+	equilibrium_factor: 0.92
+	response_delay_seconds: 5
+	energy_drift_tolerance: 0.04
+	volume_resonance_weight: 0.35
+	description: >
+		α merepresentasikan “Primary Reflective Field” — bias dominan.
+		Bertugas memimpin arah energi reflektif ke zona ekspansi.
+
+beta_field:
+	phase_bias: "Neutral"
+	sensitivity: 0.93
+	equilibrium_factor: 0.89
+	response_delay_seconds: 7
+	energy_drift_tolerance: 0.05
+	volume_resonance_weight: 0.30
+	description: >
+		β bertugas menstabilkan interaksi α dan γ,
+		menjaga keseimbangan reflektif saat terjadi perubahan volume tinggi.
+
+gamma_field:
+	phase_bias: "Reversal"
+	sensitivity: 0.91
+	equilibrium_factor: 0.87
+	response_delay_seconds: 9
+	energy_drift_tolerance: 0.06
+	volume_resonance_weight: 0.25
+	description: >
+		γ merepresentasikan “Deep Reflective Foundation”,
+		menjaga resonansi jangka panjang dan membantu fase reversal.
+
+timeframe_weights:
+	H1:
+		weight: 0.45
+		drift_compensation: 0.95
+		coherence_influence: 0.90
+	H4:
+		weight: 0.35
+		drift_compensation: 0.93
+		coherence_influence: 0.92
+	D1:
+		weight: 0.20
+		drift_compensation: 0.91
+		coherence_influence: 0.94
+	description: >
+		Bobot waktu reflektif digunakan dalam TRQ–3D untuk menentukan dominasi energi.
+		Semakin tinggi timeframe, semakin besar pengaruh stabilitas (coherence influence).
+
+quadrant_energy_map:
+	Q1:
+		label: "Expansion"
+		alpha_gain: 1.08
+		beta_gain: 1.03
+		gamma_gain: 0.97
+	Q2:
+		label: "Stabilization"
+		alpha_gain: 1.02
+		beta_gain: 1.00
+		gamma_gain: 0.99
+	Q3:
+		label: "Distribution"
+		alpha_gain: 0.94
+		beta_gain: 0.96
+		gamma_gain: 1.02
+	Q4:
+		label: "Reversal"
+		alpha_gain: 0.90
+		beta_gain: 0.94
+		gamma_gain: 1.05
+	description: >
+		Peta kuadran energi reflektif.
+		Setiap kuadran merepresentasikan kondisi unik antara momentum dan volume reflektif.
+
+energy_propagation:
+	propagation_mode: "Lorentzian"
+	field_sync_coefficient: 0.97
+	resonance_factor: 1.02
+	delay_compensation: true
+	harmonic_field_alignment: true
+	coherence_target: 0.95
+	description: >
+		Mode propagasi energi TRQ–3D melalui medan reflektif αβγ.
+		Lorentzian digunakan agar sinkronisasi stabil antar timeframe H1–H4–D1.
+
+meta_feedback:
+	enable_energy_feedback: true
+	ree_feedback_weight: 0.60
+	ree_energy_learning_rate: 0.002
+	ree_energy_decay: 0.96
+	ree_meta_sync: true
+	description: >
+		Integrasi feedback energi ke Meta-Learning Layer (REE).
+		Energi TRQ–3D akan diadaptasi melalui ree_adaptive_analysis.py.
+
+logging:
+	enable_energy_log: true
+	log_file: data/logs/trq3d_energy_spec_log.json
+	include_alpha_beta_gamma: true
+	include_quadrant_state: true
+	include_coherence_score: true
+	description: >
+		Konfigurasi logging energi reflektif.
+		Semua perhitungan energi disimpan dan dikirim ke Journal Vault.
