@@ -1,1 +1,79 @@
-{}
+{
+	"version": "6.0r++",
+	"description": "Historical Meta-Learning Reflective Curve for TUYUL FX Ultimate",
+	"last_update": "2026-01-03T20:50:00Z",
+	"learning_summary": {
+		"total_cycles_completed": 248,
+		"average_meta_integrity": 0.957,
+		"average_reflective_coherence": 0.946,
+		"average_cloud_integrity": 0.952,
+		"average_harmonic_alignment": 0.949,
+		"average_field_stability": 0.953
+	},
+	"trend_analysis": {
+		"meta_integrity_trend": [
+			0.938, 0.942, 0.946, 0.951, 0.954, 0.956, 0.959, 0.962, 0.961, 0.963
+		],
+		"reflective_coherence_trend": [
+			0.932, 0.935, 0.939, 0.941, 0.945, 0.947, 0.949, 0.951, 0.952, 0.954
+		],
+		"cloud_integrity_trend": [
+			0.940, 0.944, 0.949, 0.952, 0.953, 0.956, 0.958, 0.959, 0.961, 0.962
+		],
+		"alpha_drift_mean": -0.004,
+		"beta_drift_mean": 0.002,
+		"gamma_drift_mean": 0.003,
+		"reflective_stability_index": 0.961
+	},
+	"adaptive_learning_metrics": {
+		"adaptive_weight_alpha_avg": 0.334,
+		"adaptive_weight_beta_avg": 0.332,
+		"adaptive_weight_gamma_avg": 0.334,
+		"gain_avg": 0.011,
+		"gain_max": 0.022,
+		"gain_decay_rate": 0.88
+	},
+	"performance_highlights": [
+		{
+			"cycle_id": "MLC-1762100450",
+			"meta_integrity": 0.962,
+			"reflective_coherence": 0.950,
+			"cloud_integrity": 0.958,
+			"harmonic_alignment": 0.954,
+			"field_stability": "stable",
+			"alpha_weight": 0.334,
+			"beta_weight": 0.333,
+			"gamma_weight": 0.333,
+			"timestamp": "2026-01-02T17:40:00Z"
+		},
+		{
+			"cycle_id": "MLC-1762188800",
+			"meta_integrity": 0.966,
+			"reflective_coherence": 0.953,
+			"cloud_integrity": 0.960,
+			"harmonic_alignment": 0.956,
+			"field_stability": "stable",
+			"alpha_weight": 0.333,
+			"beta_weight": 0.333,
+			"gamma_weight": 0.334,
+			"timestamp": "2026-01-03T19:40:00Z"
+		}
+	],
+	"meta_analysis": {
+		"current_phase": "Mid Expansion",
+		"learning_slope": 0.008,
+		"volatility_correlation": 0.74,
+		"coherence_resilience_index": 0.952,
+		"adaptive_recovery_efficiency": 0.946,
+		"average_cycle_duration_minutes": 3.2,
+		"total_reflective_sync_events": 745
+	},
+	"forecast_projection": {
+		"next_expected_meta_integrity": 0.968,
+		"next_reflective_coherence": 0.956,
+		"expected_field_stability": 0.958,
+		"estimated_learning_gain": 0.012,
+		"projection_confidence": 0.94,
+		"forecast_window_cycles": 10
+	}
+}

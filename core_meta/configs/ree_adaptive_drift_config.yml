@@ -1,0 +1,81 @@
+# ============================================================
+# Reflective Evolution Engine (REE)
+# Adaptive Drift Control Configuration — v6.0r++
+# ============================================================
+# Sistem ini mengatur parameter adaptasi reflektif α–β–γ
+# berdasarkan hasil TRQ–3D, Meta Coherence, dan Vault Integrity.
+# ============================================================
+
+version: "6.0r++"
+last_update: "2026-01-03T20:15:00Z"
+
+# ------------------------------------------------------------
+# α–β–γ Drift Thresholds (Sensitivitas terhadap perubahan energi)
+# ------------------------------------------------------------
+drift_thresholds:
+  alpha_max: 0.018    # Toleransi maksimum drift α
+  beta_max: 0.015     # Toleransi maksimum drift β
+  gamma_max: 0.020    # Toleransi maksimum drift γ
+  alert_trigger: 0.022 # Ambang untuk auto-sync recovery
+  emergency_lock: 0.030 # Failsafe untuk proteksi reflektif
+
+# ------------------------------------------------------------
+# Adaptive Learning Gain (Respons pembelajaran terhadap drift)
+# ------------------------------------------------------------
+learning_gain:
+  base_gain: 0.012
+  max_gain: 0.025
+  min_gain: 0.006
+  gain_decay: 0.85     # Pengurangan gain bila integritas stabil
+  gain_boost: 1.15     # Peningkatan gain bila integritas menurun
+
+# ------------------------------------------------------------
+# Reflective Stability Factors
+# ------------------------------------------------------------
+stability_control:
+  min_stability_factor: 0.85
+  max_stability_factor: 0.99
+  harmonic_alignment_target: 0.95
+  coherence_target: 0.94
+  meta_integrity_target: 0.96
+
+# ------------------------------------------------------------
+# Adaptive Weight Modulation (Bobot pembelajaran reflektif)
+# ------------------------------------------------------------
+adaptive_weights:
+  alpha_weight: 0.33
+  beta_weight: 0.33
+  gamma_weight: 0.34
+  auto_normalize: true
+  dynamic_adjustment: true
+  adjustment_rate: 0.15  # Kecepatan perubahan per siklus REE
+
+# ------------------------------------------------------------
+# Reflective Recovery Settings
+# ------------------------------------------------------------
+recovery_protocol:
+  enable_auto_recovery: true
+  recovery_mode: "auto_sync_recovery"
+  min_integrity_trigger: 0.93
+  recovery_boost_factor: 1.02
+  reflective_realign_cycles: 3
+  log_to_vault: true
+
+# ------------------------------------------------------------
+# Cloud Synchronization Policy
+# ------------------------------------------------------------
+cloud_sync:
+  enable_sync: true
+  min_integrity_for_upload: 0.92
+  latency_target_ms: 250
+  fallback_mode: "journal_only"
+  upload_interval_minutes: 15
+
+# ------------------------------------------------------------
+# Logging & Diagnostics
+# ------------------------------------------------------------
+logging:
+  enable_reflective_log: true
+  log_path: "data/logs/ree_adaptive_analysis.log"
+  save_interval: "1h"
+  verbose_mode: false

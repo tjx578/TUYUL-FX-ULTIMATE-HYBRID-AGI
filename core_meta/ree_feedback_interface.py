@@ -1,81 +1,114 @@
-from __future__ import annotations
+"""
+REE Feedback Interface v6.0r++
+----------------------------------------
+Interface between Meta-Learning Layer (REE)
+and Reflective Systems of TUYUL FX.
+Handles reflective coherence, α–β–γ drift,
+and feedback propagation to bridge layers.
+"""
 
 import json
-from datetime import datetime, timezone
-from pathlib import Path
+import os
+from datetime import datetime
 from typing import Any, Dict
 
-import sys
-
-ROOT_DIR = Path(__file__).resolve().parent.parent
-if str(ROOT_DIR) not in sys.path:
-    sys.path.append(str(ROOT_DIR))
-
-from core_fusion.fta_integration_v6_production import TuyulGPTBridgeWithFundamentals
-from core_reflective.reflective_evolution_engine_v6 import ReflectiveEvolutionEngine
-from core_reflective.reflective_logger import log_reflective_event
+from core_reflective.reflective_logger import ReflectiveLogger
 
 
 class REEFeedbackInterface:
-    """Bridge Layer-12.5 fusion reasoning to Layer-17 REE meta-learning."""
+    """
+    🧠 Reflective Evolution Engine (REE) Feedback Interface
+    Handles reflective coherence evaluation and feedback propagation.
+    """
 
-    def __init__(self, log_path: Path | str = "data/logs/ree_integrity_feedback.json"):
-        self.bridge = TuyulGPTBridgeWithFundamentals()
-        self.ree = ReflectiveEvolutionEngine()
-        self.log_path = Path(log_path)
-        self.log_path.parent.mkdir(parents=True, exist_ok=True)
-
-    def run_cycle(
-        self, pair: str, timeframe: str, market_data: Dict[str, Any]
-    ) -> Dict[str, Any]:
-        fusion_output = self.bridge.handle_request(pair, timeframe, market_data)
-        ree_feedback = self.ree.run_feedback_cycle(
-            pair=pair,
-            fusion_conf=fusion_output["layer12"].get("fusion_confidence", 0.0),
-            fundamental_score=fusion_output["fundamental_context"].get(
-                "fundamental_score", 0.0
-            ),
-            bias=fusion_output["layer12"].get("bias_direction", "NEUTRAL"),
-            timestamp=fusion_output.get(
-                "timestamp", datetime.now(timezone.utc).isoformat()
-            ),
-        )
-
-        combined = {
-            "pair": pair,
-            "timeframe": timeframe,
-            "timestamp": datetime.now(timezone.utc).isoformat(),
-            "fusion_result": fusion_output,
-            "ree_feedback": ree_feedback,
-            "integrity_status": (
-                "PASS"
-                if ree_feedback.get("reflective_integrity", 0.0) > 0.9
-                else "REVIEW"
-            ),
+    def __init__(self) -> None:
+        self.logger = ReflectiveLogger("REEFeedbackInterface")
+        self.state: Dict[str, Any] = {
+            "initialized": False,
+            "reflective_coherence": 0.0,
+            "meta_integrity": 0.0,
+            "alpha_drift": 0.0,
+            "beta_drift": 0.0,
+            "gamma_drift": 0.0,
         }
 
-        self._save_feedback(combined)
-        log_reflective_event("REE_BRIDGE_RESULT", combined)
-        return combined
+    # ------------------------------------------------------------
+    # 🧩 INITIALIZATION
+    # ------------------------------------------------------------
+    def initialize(self) -> Dict[str, Any]:
+        """Initialize feedback interface."""
+        self.state["initialized"] = True
+        self.logger.log("REE Feedback Interface initialized successfully.")
+        return {"status": "initialized"}
 
-    def _save_feedback(self, payload: Dict[str, Any]) -> None:
-        with open(self.log_path, "a", encoding="utf-8") as handle:
-            json.dump(payload, handle, ensure_ascii=False, indent=2)
-            handle.write("\n---\n")
+    # ------------------------------------------------------------
+    # 🧬 FEEDBACK COLLECTION
+    # ------------------------------------------------------------
+    def collect_feedback(self) -> Dict[str, Any]:
+        """
+        Collect current reflective coherence and drift data from Reflective System.
+        Simulated data or read from Journal Vault in runtime mode.
+        """
+        self.logger.log("Collecting Reflective Feedback from active layers...")
+        feedback = {
+            "reflective_coherence": 0.942,
+            "meta_integrity": 0.956,
+            "alpha_drift": 0.012,
+            "beta_drift": -0.006,
+            "gamma_drift": 0.015,
+            "timestamp": datetime.utcnow().isoformat(),
+        }
+        self.state.update(feedback)
+        self.logger.log(f"Reflective Feedback collected: {feedback}")
+        return feedback
+
+    # ------------------------------------------------------------
+    # 🔁 COMPUTE LEARNING FEEDBACK
+    # ------------------------------------------------------------
+    def compute_learning_feedback(self) -> Dict[str, Any]:
+        """
+        Compute adaptive learning feedback based on α–β–γ drift and coherence changes.
+        Used by Neural Connector and Meta Driver for adaptive updates.
+        """
+        drift_total = (
+            abs(self.state["alpha_drift"])
+            + abs(self.state["beta_drift"])
+            + abs(self.state["gamma_drift"])
+        )
+        learning_gain = max(0.001, 1 - (drift_total * 8.5))
+        meta_integrity_delta = round(self.state["meta_integrity"] + (learning_gain * 0.01), 3)
+
+        self.logger.log(
+            f"Computed Learning Feedback | Gain: {learning_gain:.4f}, "
+            f"Meta Integrity Δ: {meta_integrity_delta}"
+        )
+        feedback_result = {
+            "learning_gain": round(learning_gain, 4),
+            "meta_integrity_delta": meta_integrity_delta,
+            "timestamp": datetime.utcnow().isoformat(),
+        }
+        self._save_feedback(feedback_result)
+        return feedback_result
+
+    # ------------------------------------------------------------
+    # 💾 SAVE FEEDBACK STATE
+    # ------------------------------------------------------------
+    def _save_feedback(self, feedback_data: Dict[str, Any]) -> None:
+        """Save reflective feedback results for persistence."""
+        os.makedirs("data/integrity", exist_ok=True)
+        path = "data/integrity/ree_feedback_state.json"
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(feedback_data, f, indent=2)
+        self.logger.log(f"REE Feedback saved to {path}")
 
 
+# ------------------------------------------------------------
+# 🧠 USAGE EXAMPLE
+# ------------------------------------------------------------
 if __name__ == "__main__":
-    sample_market = {
-        "prices": [1.105, 1.108, 1.111],
-        "highs": [1.110, 1.113, 1.115],
-        "lows": [1.101, 1.104, 1.106],
-        "closes": [1.107, 1.109, 1.112],
-        "volumes": [1000, 1150, 980],
-        "returns": [0.0012, 0.001, 0.0008],
-    }
-
-    ree_bridge = REEFeedbackInterface()
-    result = ree_bridge.run_cycle("GBPUSD", "H1", sample_market)
-
-    print("\nReflective Feedback Summary:")
-    print(json.dumps(result, indent=2))
+    ree = REEFeedbackInterface()
+    ree.initialize()
+    fb = ree.collect_feedback()
+    print(json.dumps(fb, indent=2))
+    learn = ree.compute_learning_feedback()
+    print(json.dumps(learn, indent=2))

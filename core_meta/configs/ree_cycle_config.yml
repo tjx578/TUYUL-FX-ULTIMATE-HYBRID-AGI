@@ -1,1 +1,89 @@
-# placeholder
+# ============================================================
+# Reflective Evolution Engine (REE)
+# Meta-Learning Cycle Configuration — v6.0r++
+# ============================================================
+# File konfigurasi utama untuk mengatur siklus pembelajaran reflektif adaptif.
+# Digunakan oleh: meta_learning_driver.py, ree_adaptive_analysis.py, ree_cloud_sync.py
+# ============================================================
+
+version: "6.0r++"
+last_update: "2026-01-03T20:30:00Z"
+
+# ------------------------------------------------------------
+# 🧭 General Cycle Parameters
+# ------------------------------------------------------------
+cycle_parameters:
+	enable_meta_learning: true          # Aktifkan siklus pembelajaran REE
+	cycle_interval_minutes: 30          # Interval antar siklus (default 30 menit)
+	max_runtime_minutes: 5              # Batas waktu eksekusi tiap siklus
+	log_cycle_to_vault: true            # Simpan log hasil ke Journal Vault
+	auto_sync_bridge: true              # Sinkronisasi ke HybridReflectiveBridge setiap akhir siklus
+
+# ------------------------------------------------------------
+# 🔁 Reflective Synchronization Schedule
+# ------------------------------------------------------------
+sync_schedule:
+	cloud_sync_interval: 2              # Sinkronisasi cloud setiap 2 siklus
+	vault_integrity_check_interval: 3   # Pemeriksaan integritas vault setiap 3 siklus
+	resonance_map_refresh_interval: 1   # Update peta resonansi α–β–γ tiap siklus
+	feedback_cycle_interval: 1          # Pengambilan feedback REE tiap siklus
+	drift_analysis_interval: 1          # Analisis drift reflektif tiap siklus
+
+# ------------------------------------------------------------
+# ⚙️ Learning Control Parameters
+# ------------------------------------------------------------
+learning_control:
+	base_learning_rate: 0.01            # Kecepatan dasar pembelajaran reflektif
+	adaptive_learning_factor: 1.0       # Faktor adaptasi pembelajaran (auto-tuning)
+	gain_boost_on_recovery: 1.15        # Peningkatan gain setelah auto-recovery
+	gain_decay_stable: 0.88             # Reduksi gain bila stabilitas tercapai
+	feedback_coherence_threshold: 0.93  # Ambang minimal untuk validasi feedback reflektif
+
+# ------------------------------------------------------------
+# 🧩 Reflective Coherence Targets
+# ------------------------------------------------------------
+coherence_targets:
+	reflective_coherence_target: 0.94
+	meta_integrity_target: 0.96
+	cloud_integrity_target: 0.95
+	harmonic_alignment_target: 0.95
+	field_stability_target: 0.94
+
+# ------------------------------------------------------------
+# ☁️ Cloud Sync & Recovery Settings
+# ------------------------------------------------------------
+cloud_sync:
+	enable_cloud_upload: true
+	upload_interval_minutes: 15
+	latency_alert_threshold_ms: 300
+	min_integrity_for_upload: 0.93
+	fallback_mode: "journal_only"
+	max_retry_attempts: 3
+
+recovery_protocol:
+	enable_auto_recovery: true
+	recovery_action: "auto_sync_recovery"
+	recovery_boost_factor: 1.03
+	recovery_cooldown_minutes: 10
+	integrity_threshold: 0.92
+
+# ------------------------------------------------------------
+# 🧠 Logging & Diagnostics
+# ------------------------------------------------------------
+logging:
+	enable_meta_cycle_log: true
+	log_to_console: true
+	save_cycle_history: true
+	log_file_path: "data/logs/ree_meta_cycle_log.json"
+	retention_days: 30
+	verbose_mode: false
+
+# ------------------------------------------------------------
+# 🧩 Advanced Parameters (Optional)
+# ------------------------------------------------------------
+advanced:
+	random_seed_control: false
+	enable_auto_tuning: true
+	alpha_beta_gamma_link_strength: 0.97
+	predictive_mode: true              # Gunakan prediksi resonansi TRQ–3D
+	stabilization_window: 5            # Jumlah siklus untuk rata-rata stabilitas
