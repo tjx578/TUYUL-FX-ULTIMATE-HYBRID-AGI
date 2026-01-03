@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-01-03T00:00:00Z",
+  "pair": "XAUUSD",
+  "timeframe": "H1",
+  "divergence_id": "DIV-H1-20260103-001",
+  "detector_engine": "CCI–MFI Divergence Detector v6.0r∞",
+  "fusion_conf12": 0.952,
+  "trq3d_energy": 1.826,
+  "reflective_intensity": 1.792,
+  "divergence_score": 0.097,
+  "divergence_type": "Bullish Regular Divergence",
+  "momentum_field_strength": 0.77,
+  "volume_reflectivity": 0.84,
+  "price_momentum_shift": 0.028,
+  "reflective_bias": "Bullish Reflective",
+  "probability_of_reversal": 0.73,
+  "field_coherence": 0.962,
+  "meta_feedback_link": "REE-20260103-001",
+  "notes": "Regular bullish divergence between price momentum and reflective volume; watch 2308.50 support alignment."
+}

@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-01-03T00:00:00Z",
+  "pair": "XAUUSD",
+  "timeframe": "H4",
+  "divergence_id": "DIV-H4-20260103-001",
+  "detector_engine": "CCI–MFI Divergence Detector v6.0r∞",
+  "fusion_conf12": 0.946,
+  "trq3d_energy": 1.813,
+  "reflective_intensity": 1.784,
+  "divergence_score": 0.082,
+  "divergence_type": "Bearish Hidden Divergence",
+  "momentum_field_strength": 0.74,
+  "volume_reflectivity": 0.81,
+  "price_momentum_shift": -0.022,
+  "reflective_bias": "Bullish Reflective",
+  "probability_of_reversal": 0.61,
+  "field_coherence": 0.954,
+  "meta_feedback_link": "REE-20260103-001",
+  "notes": "Hidden divergence detected in reflective energy field; potential reversal zone forming near 2320.00."
+}

@@ -1,0 +1,20 @@
+{
+  "timestamp": "2026-01-03T00:00:00Z",
+  "pair": "EURUSD",
+  "timeframe": "M15",
+  "divergence_id": "DIV-M15-20260103-001",
+  "detector_engine": "CCI–MFI Divergence Detector v6.0r∞",
+  "fusion_conf12": 0.938,
+  "trq3d_energy": 1.701,
+  "reflective_intensity": 1.655,
+  "divergence_score": 0.021,
+  "divergence_type": "Neutral",
+  "momentum_field_strength": 0.63,
+  "volume_reflectivity": 0.69,
+  "price_momentum_shift": 0.004,
+  "reflective_bias": "Neutral Reflective",
+  "probability_of_reversal": 0.18,
+  "field_coherence": 0.970,
+  "meta_feedback_link": "REE-20260103-001",
+  "notes": "Minor variance only; divergence not actionable."
+}

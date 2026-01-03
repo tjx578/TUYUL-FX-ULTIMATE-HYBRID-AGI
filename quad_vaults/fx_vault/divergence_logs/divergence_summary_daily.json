@@ -1,0 +1,13 @@
+{
+  "date": "2026-01-03",
+  "pairs_analyzed": ["EURUSD", "GBPUSD", "XAUUSD"],
+  "divergence_total": 7,
+  "average_divergence_score": 0.078,
+  "dominant_bias": "Bullish Reflective",
+  "most_active_timeframe": "H1",
+  "max_probability_reversal": 0.68,
+  "reflective_coherence": 0.951,
+  "drift_gradient": 0.004,
+  "meta_alignment": 0.958,
+  "drift_correction_triggered": false
+}
