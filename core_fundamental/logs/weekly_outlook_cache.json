@@ -1,1 +1,91 @@
-{}
+{
+  "version": "v5.3.3",
+  "engine": "WeeklyOutlookSync",
+  "layer": "L11.3-MACRO-WEEKLY",
+  "last_updated": "2026-01-02T06:00:00Z",
+  "summary_period": {
+    "start": "2025-12-26T00:00:00Z",
+    "end": "2026-01-02T00:00:00Z"
+  },
+  "macro_overview": {
+    "global_risk_sentiment": "Moderate Risk-On",
+    "vix_average": 17.1,
+    "yield_spread_avg": -0.43,
+    "dxy_average": 104.9,
+    "commodity_trend": {
+      "oil": "weak",
+      "gold": "strong",
+      "copper": "neutral"
+    },
+    "market_summary": "Pasar global menunjukkan pemulihan moderat menjelang data NFP AS, dengan DXY stabil dan komoditas beragam."
+  },
+  "regional_outlook": {
+    "USD": {
+      "policy_bias": "neutral_to_hawkish",
+      "growth_signal": "steady",
+      "confidence": 0.82
+    },
+    "EUR": {
+      "policy_bias": "neutral",
+      "growth_signal": "slowing",
+      "confidence": 0.74
+    },
+    "GBP": {
+      "policy_bias": "hawkish",
+      "growth_signal": "flat",
+      "confidence": 0.77
+    },
+    "JPY": {
+      "policy_bias": "ultra_dovish",
+      "growth_signal": "stagnant",
+      "confidence": 0.65
+    },
+    "CAD": {
+      "policy_bias": "neutral_to_dovish",
+      "growth_signal": "softening",
+      "confidence": 0.68
+    },
+    "AUD": {
+      "policy_bias": "neutral",
+      "growth_signal": "stabilizing",
+      "confidence": 0.72
+    },
+    "NZD": {
+      "policy_bias": "neutral",
+      "growth_signal": "recovering",
+      "confidence": 0.70
+    },
+    "CHF": {
+      "policy_bias": "neutral_to_dovish",
+      "growth_signal": "flat",
+      "confidence": 0.69
+    }
+  },
+  "bias_alignment_matrix": {
+    "Strong_Buy_Bias": ["USDJPY", "USDCAD"],
+    "Strong_Sell_Bias": ["EURUSD", "AUDCAD"],
+    "Neutral_Bias": ["GBPUSD", "NZDJPY"]
+  },
+  "weekly_summary": {
+    "macro_confidence_avg": 0.722,
+    "policy_diff_trend": "widening_USD_advantage",
+    "risk_mode": "controlled_risk_on",
+    "macro_commentary": "USD tetap kuat meski tekanan inflasi mereda. CAD melemah akibat turunnya harga minyak di bawah $75. Risk sentiment positif moderat, mendukung AUD & NZD."
+  },
+  "integration": {
+    "synced_to_fusion": true,
+    "fusion_timestamp": "2026-01-02T06:05:00Z",
+    "integrity_index": 0.97,
+    "meta_sync_state": "active"
+  },
+  "metadata": {
+    "records_included": 7,
+    "source_files": [
+      "fundamental_feed_log.json",
+      "macro_policy_tracker.json",
+      "commodity_snapshot.json"
+    ],
+    "vault_path": "data/vault/logs/weekly_outlook_cache.json",
+    "auto_rotation_policy": "weekly"
+  }
+}
