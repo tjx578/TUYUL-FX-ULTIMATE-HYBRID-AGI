@@ -1,39 +1,32 @@
 # ==========================================================
-# 🧩 TUYUL FX ULTIMATE HYBRID AGI
-# FUSION THRESHOLDS CONFIG v6.0r∞ (Baseline Template)
-# ----------------------------------------------------------
-# File ini akan diupdate secara dinamis oleh:
-#   → adaptive_threshold_controller_v6.py
-# Berdasarkan FRPC Drift, Reflective Gradient, dan Integrity Index.
+# ⚙️ Fusion Threshold Configuration — TUYUL FX v5.8r++
+# Layer: Fusion Spectre → TRQ–3D → Reflective
+# Integrasi ke: Fusion Precision, Equilibrium Fusion, FRPC Engine
 # ==========================================================
 
-# Layer-8: EMA Fusion Settings
-ema_alignment_weight: 0.75        # Default weight ratio for EMA 21–55 alignment
-ema_smoothing_factor: 0.65        # Smoothness control (higher = smoother response)
-ema_signal_threshold: 0.0018      # Minimum delta between fast/slow EMA to trigger fusion
+fusion_thresholds:
+  # Ambang deviasi VWAP (untuk Smart Money Counter)
+  vwap_deviation_factor: 1.2        # ATR multiplier (default: 1.2)
+  spread_threshold: 55              # Min. spread MFI–CCI50 untuk valid reversal zone
 
-# Layer-9: Fusion Precision Engine
-fusion_precision_tolerance: 0.0200  # Base tolerance for Precision validation
-fusion_confidence_scale: 1.0        # Scaling factor for TWMS × Reflex × EMA synergy
-fusion_energy_weight: 0.45          # Weight for energy-to-precision propagation
+  # Energi reflektif minimum
+  reflective_energy_min: 0.85       # Minimal energi TRQ–3D agar valid
+  reflective_energy_max: 1.5        # Batas maksimal resonansi
 
-# Layer-10: VWAP–Reflex Equilibrium
-vwap_sensitivity: 1.250           # Sensitivity for VWAP deviation detection
-vwap_equilibrium_band: 0.015      # ± band width around VWAP considered "balanced"
-vwap_momentum_bias_factor: 0.5    # Blend factor for Reflex–EMA fusion
+  # Confidence level minimal untuk valid signal
+  reflective_confidence_min: 0.75
+  reflective_confidence_max: 0.98
 
-# Layer-11: Reflective Propagation (FRPC)
-reflex_confidence_multiplier: 0.333   # Reflective confidence multiplier baseline
-reflective_sync_decay: 0.85           # Decay factor for FRPC propagation between cycles
-reflective_energy_threshold: 2.5      # Minimum reflective energy to maintain integrity
+  # FRPC (Fusion Reflective Propagation Coefficient)
+  frpc_stable_min: 0.93             # Minimal nilai FRPC untuk dianggap sinkron
+  frpc_drift_limit: 0.80            # Jika <0.8 → masuk mode resinkronisasi
 
-# Layer-12: Adaptive Drift Response (Dynamic Updates)
-adaptive_recalibration_window: 5      # Cycles before recalibration trigger
-gradient_sensitivity: 0.45            # Multiplier for FRPC gradient scaling
-volatility_compensation_factor: 1.00  # Adjusted by integrity index (auto-tuned)
-integrity_resilience_limit: 0.92      # Minimum acceptable reflective integrity
+  # Integritas Vault minimal
+  integrity_index_min: 0.95         # Nilai minimal vault untuk operasi normal
 
-# Metadata
-version: "6.0r∞"
-last_updated: "2026-01-01T00:00:00Z"
-updated_by: "baseline_system"
+meta:
+  version: 6.0
+  build: "reflective-production"
+  updated: "2026-01-03T15:00:00Z"
+  vault_layer: "Fusion Spectre Layer"
+  description: "Ambang batas utama untuk deteksi, refleksi, dan sinkronisasi lintas layer."
